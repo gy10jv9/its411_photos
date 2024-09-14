@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "its411_memorialPhotos",
+    "slug": "its411_memorialPhotos",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.sdure2pyc6sanq.its411_memorialPhotos"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "6aa821f8-78d7-494b-8502-e6b4d6e036bb"
+      }
+    }
+  }
+}
