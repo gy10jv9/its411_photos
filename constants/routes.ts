@@ -1,5 +1,3 @@
-import addDay from "@/app/highlights/addDay";
-
 export const routes = {
     home: "index",
     signin: "auth/signin",
