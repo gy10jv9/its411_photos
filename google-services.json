@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "622003543241",
+    "project_id": "its411-acfea",
+    "storage_bucket": "its411-acfea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:622003543241:android:80ba228e15ff257001c118",
+        "android_client_info": {
+          "package_name": "com.ITS.LIFE"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4NCjB0Be3FxmKXm1Q2nNupoEiZUiPcY4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
