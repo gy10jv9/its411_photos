@@ -9,7 +9,7 @@ export default function RootLayout() {
 				{/* Add "options={{ headerShown: false }}" para mag hide header */}
 				<Stack.Screen name="index" options={{ headerShown: false }} />
 				<Stack.Screen name="auth/registration" options={{ headerShown: false }}/>
-				<Stack.Screen name="auth/login" options={{ headerShown: false }}/>
+				<Stack.Screen name="auth/signin" options={{ headerShown: false }}/>
 			</Stack>
 		</ColorSchemeProvider>
 	);
