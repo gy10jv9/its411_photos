@@ -1,9 +1,9 @@
-import { StyledView, StyledText, StyledTextInput, StyledButton, StyledPressable } from '../../components/StyledComponents'
+import { StyledView, StyledText, StyledTextInput, StyledButton, StyledPressable } from '../../../components/StyledComponents'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { useColorSchemeContext } from '../../context/ColorSchemeContext'
+import { useColorSchemeContext } from '../../../context/ColorSchemeContext'
 import { useRouter, Href } from 'expo-router'
 
-const Registration = () => {
+const Reg_Part2 = () => {
     const  { colorScheme, toggleColorScheme } = useColorSchemeContext()
     const router = useRouter()
 
@@ -33,4 +33,4 @@ const Registration = () => {
     );
 }
 
-export default Registration;
+export default Reg_Part2;

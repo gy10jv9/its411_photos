@@ -14,10 +14,10 @@ const Home = () => {
 		<SafeAreaView>
 			<StyledView className='dark:bg-slate-900'>
 				<StyledText className="text-red-500 text-xl"> This is the home screen. </StyledText>
-				<StyledPressable className="mt-4 p-2 bg-gray-500 rounded" onPress={() => router.push('/auth/signin' as Href)}>
+				<StyledPressable className="mt-4 p-2 bg-gray-500 rounded" onPress={() => router.push('auth/signin' as Href)}>
 					<StyledText className="text-white"> Signin </StyledText>
 				</StyledPressable>
-				<StyledPressable className="mt-4 p-2 bg-gray-500 rounded" onPress={() => router.push("/auth/registration" as Href)}>
+				<StyledPressable className="mt-4 p-2 bg-gray-500 rounded" onPress={() => router.push("auth/registration" as Href)}>
 					<StyledText className="text-white"> Register </StyledText>
 				</StyledPressable>       
 			</StyledView>
