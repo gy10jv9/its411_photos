@@ -15,12 +15,15 @@ const Home = () => {
 		<SafeAreaView>
 			<StyledView className='dark:bg-slate-900'>
 				<StyledText className="text-red-500 text-xl"> This is the home screen. </StyledText>
-				<StyledPressable className="mt-4 p-2 bg-gray-500 rounded" onPress={() => router.push(routes.signin as Href)}>
+				<StyledPressable className="bg-indigo-700 text-white py-2 w-full rounded-full my-0.5" onPress={() => router.push(routes.signin as Href)}>
 					<StyledText className="text-white"> Signin </StyledText>
 				</StyledPressable>
-				<StyledPressable className="mt-4 p-2 bg-gray-500 rounded" onPress={() => router.push(routes.registration.part1 as Href)}>
+				<StyledPressable className="bg-indigo-700 text-white py-2 w-full rounded-full my-0.5" onPress={() => router.push(routes.registration.part1 as Href)}>
 					<StyledText className="text-white"> Register </StyledText>
-				</StyledPressable>       
+				</StyledPressable>    
+				<StyledPressable className="bg-indigo-700 text-white py-2 w-full rounded-full my-0.5" onPress={() => router.push(routes.addDay as Href)}>
+					<StyledText className="text-white"> Add Highlight </StyledText>
+				</StyledPressable>      
 			</StyledView>
 
 			<Switch value={colorScheme === 'dark'} onValueChange={toggleColorScheme} />
