@@ -13,6 +13,7 @@ export default function RootLayout() {
 				<Stack.Screen name={routes.signin} options={{ headerShown: false }}/>
 				<Stack.Screen name={routes.registration.part1} options={{ headerShown: false }}/>
 				<Stack.Screen name={routes.registration.part2} options={{ headerShown: false }}/>
+				<Stack.Screen name={routes.addDay} options={{ headerShown: false }}/>
 			</Stack>
 		</ColorSchemeProvider>
 	);
