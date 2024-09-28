@@ -2,6 +2,9 @@ import { StyledView, StyledText, StyledTextInput, StyledButton, StyledPressable 
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useColorSchemeContext } from '../../context/ColorSchemeContext'
 import { useRouter, Href } from 'expo-router'
+import { routes } from '@/constants/routes';
+
+// const = { test: "classname='flex flex-col items-center justify-center h-screen w-[100vw] px-8'" }
 
 const Signin = () => {
     const  { colorScheme, toggleColorScheme } = useColorSchemeContext()
@@ -24,7 +27,7 @@ const Signin = () => {
                 {/* para sa register */}
                 <StyledView className='flex flex-row items-center justify-center mt-4'>
                     <StyledText> I don't have an account. </StyledText>
-                    <StyledPressable onPress={() => router.push('/auth/signin' as Href)}>
+                    <StyledPressable onPress={() => router.push(routes.registration.part1 as Href)}>
                         <StyledText> Register Here </StyledText>
                     </StyledPressable>
                 </StyledView>
