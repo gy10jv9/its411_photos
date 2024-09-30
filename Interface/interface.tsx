@@ -1,5 +1,5 @@
 export interface User {
-  id?: string; // Firestore will assign this automatically
+  id?: string; 
   firstName: string;
   lastName: string;
   birthDate: string;
