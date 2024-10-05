@@ -5,7 +5,7 @@ import { useColorSchemeContext } from '../../context/ColorSchemeContext';
 import { useRouter, Href } from 'expo-router';
 import { routes } from '@/constants/routes';
 import { db } from '../../firebaseConfig';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { collection, getDocs, query, updateDoc, where } from 'firebase/firestore';
 
 const Signin = () => {
     const { colorScheme, toggleColorScheme } = useColorSchemeContext();
@@ -20,22 +20,28 @@ const Signin = () => {
             const usersRef = collection(db, 'Users');
             const q = query(usersRef, where('email', '==', formData.email));
             const querySnapshot = await getDocs(q);
-    
             if (querySnapshot.empty) {
                 console.error('No user found with this email');
                 setError('Invalid email or password'); 
                 return;
             }
-            let userDoc = null;
-            querySnapshot.forEach((doc) => {
-                userDoc = doc.data();
+            querySnapshot.forEach(async (doc) => {
+                const userDoc = doc.data();
+                
                 if (userDoc.password !== formData.password) {
                     console.error('Password does not match');
                     setError('Invalid email or password');
-                } else {
-                    console.log('Login successful');
-                    router.push('/');
+                    return; 
                 }
+                console.log('Login successful');
+                if (userDoc.firstLogin) {
+                    console.log(`Welcome, ${userDoc.firstName || "User"}!`);
+                    await updateDoc(doc.ref, {
+                        firstLogin: false
+                      });
+                      console.log(userDoc)
+                }
+                router.push('/');
             });
         } catch (error) {
             console.error('Login failed:', error);

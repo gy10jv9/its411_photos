@@ -7,7 +7,6 @@ import { db } from '../../../firebaseConfig';
 import { useState } from 'react';
 import { collection, addDoc } from 'firebase/firestore';
 import { useRegistrationFormData } from './regData';
-
 const Reg_Part2 = () => {
   const { colorScheme, toggleColorScheme } = useColorSchemeContext();
   const router = useRouter();
@@ -22,7 +21,8 @@ const Reg_Part2 = () => {
         }
       const user = {
         ...formData,
-        createdAt: new Date()
+        createdAt: new Date(),
+        firstLogin: true
       };
       const docRef = await addDoc(collection(db, 'Users'), user);
       console.log("User registered with ID: ", docRef.id);
