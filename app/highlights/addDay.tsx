@@ -33,7 +33,7 @@ const addDay = () => {
     }
 
     const pickImage = async () => {
-        // No permissions request is necessary for launching the image library
+        // No permissions request is necessary for launching the image librarys
         let result = await ImagePicker.launchImageLibraryAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.All,
           allowsEditing: true,
