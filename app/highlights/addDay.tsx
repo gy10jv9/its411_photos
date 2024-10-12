@@ -5,7 +5,6 @@ import { useState, useEffect } from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import * as Location from 'expo-location';
 
-
 const addDay = () => {
     const [image, setImage] = useState<string | null>(null);
     const [location, setLocation] = useState<Location.LocationObject | null>(null);
