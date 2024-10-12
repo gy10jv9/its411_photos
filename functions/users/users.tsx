@@ -1,67 +1,52 @@
-import { useRouter } from "expo-router";
-import { addDoc, collection, query, where, getDocs, updateDoc, doc, getFirestore } from '@react-native-firebase/firestore';
-import { useState } from "react";
-import { useRegistrationFormData } from "@/app/auth/registration/regData"; 
-import '@react-native-firebase/app';
-const firestore = getFirestore();
-const Register = async () => {
-  const { formData } = useRegistrationFormData();
-  const router = useRouter();
-  const [error, setError] = useState('');
+import { addDoc, collection, query, where, getDocs, updateDoc, doc } from '@react-native-firebase/firestore';
+import firestore from '@react-native-firebase/firestore';
 
+const Register = async (formData: any) => {
   try {
     const user = {
       ...formData,
       createdAt: new Date(),
       firstLogin: true,
     };
-    const docRef = await addDoc(collection(firestore, 'Users'), user);
+    const usersCollection = firestore().collection('Users');
+    const docRef = await usersCollection.add(user);
+
     console.log("User registered with ID: ", docRef.id);
-    router.push('/');
+    return null;
   } catch (e) {
     console.error("Error registering user: ", e);
-    setError('Error occurred during registration.');
+    return 'Error occurred during registration.'; 
   }
 };
 
-const Login = async () => {
-  const { formData } = useRegistrationFormData();
-  const router = useRouter();
-  const [error, setError] = useState('');
-
+const Login = async (formData: any) => {
   try {
-    const usersRef = collection(firestore, 'Users'); // Pass Firestore instance here as well
+    const usersRef = collection(firestore(), 'Users');
     const q = query(usersRef, where('email', '==', formData.email));
     const querySnapshot = await getDocs(q);
 
     if (querySnapshot.empty) {
       console.error('No user found with this email');
-      setError('Invalid email or password');
-      return;
+      return 'Invalid email or password'; 
     }
 
-    querySnapshot.forEach(async (docSnapshot) => {
+    for (const docSnapshot of querySnapshot.docs) {
       const userDoc = docSnapshot.data();
       if (userDoc.password !== formData.password) {
         console.error('Password does not match');
-        setError('Invalid email or password');
-        return;
+        return 'Invalid email or password'; 
       }
-
       console.log('Login successful');
       if (userDoc.firstLogin) {
         console.log(`Welcome, ${userDoc.firstName || "User"}!`);
-
-        // Update firstLogin field to false
-        const userDocRef = doc(firestore, 'Users', docSnapshot.id);
+        const userDocRef = doc(firestore(), 'Users', docSnapshot.id);
         await updateDoc(userDocRef, { firstLogin: false });
       }
-
-      router.push('/');
-    });
+    }
+    return null;
   } catch (e) {
     console.error("Error during login: ", e);
-    setError('Error occurred during login.');
+    return 'Error occurred during login.'; 
   }
 };
 

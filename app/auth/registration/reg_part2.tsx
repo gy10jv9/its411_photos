@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { useRegistrationFormData } from './regData';
 import { Register } from '@/functions/users/users';
 
-const Reg_Part2  = () => {
+const Reg_Part2 = () => {
   const { colorScheme, toggleColorScheme } = useColorSchemeContext();
   const router = useRouter();
   const { formData, setFormData } = useRegistrationFormData();
@@ -14,16 +14,17 @@ const Reg_Part2  = () => {
   const [error, setError] = useState('');
 
   const handleRegister = async () => {
-    try {
-      if (formData.password !== confirmPassword) {
-        setError('Passwords do not match!');
-        return;
-      }
-      await Register();
-    } catch (error) {
-      console.error("Error during registration: ", error);
-      setError('Error occurred during registration.');
+    console.log(formData);
+    if (formData.password !== confirmPassword) {
+      setError('Passwords do not match!');
+      return;
     }
+    const registrationError = await Register(formData);
+    if (registrationError) {
+      setError(registrationError);
+      return;
+    }
+    router.push('/');
   };
 
   return (
@@ -63,4 +64,4 @@ const Reg_Part2  = () => {
   );
 };
 
-export default Reg_Part2 ;
+export default Reg_Part2;
