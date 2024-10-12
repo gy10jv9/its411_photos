@@ -14,17 +14,13 @@ const Reg_Part2 = () => {
   const [error, setError] = useState('');
 
   const handleRegister = async () => {
-    console.log(formData);
-    if (formData.password !== confirmPassword) {
-      setError('Passwords do not match!');
-      return;
+    const result = await Register(formData);
+    console.log(result)
+    if (result) {
+      alert(result); 
+    } else {
+      alert("Registration successful!");
     }
-    const registrationError = await Register(formData);
-    if (registrationError) {
-      setError(registrationError);
-      return;
-    }
-    router.push('/');
   };
 
   return (

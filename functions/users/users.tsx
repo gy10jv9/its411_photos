@@ -1,6 +1,5 @@
 import { addDoc, collection, query, where, getDocs, updateDoc, doc } from '@react-native-firebase/firestore';
 import firestore from '@react-native-firebase/firestore';
-
 const Register = async (formData: any) => {
   try {
     const user = {
