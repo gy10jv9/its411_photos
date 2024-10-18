@@ -2,7 +2,6 @@ import { StyledView, StyledText, StyledTextInput, StyledButton, StyledPressable 
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useColorSchemeContext } from '../../../context/ColorSchemeContext'
 import { useRouter, Href } from 'expo-router'
-import { routes } from '@/constants/routes';
 
 const Reg_Part2 = () => {
     const  { colorScheme, toggleColorScheme } = useColorSchemeContext()
@@ -21,14 +20,14 @@ const Reg_Part2 = () => {
                 <StyledTextInput className='bg-transparent border border-gray-300 rounded-md py-2 px-4 my-0.5 w-full' placeholder='Password' />
                 <StyledTextInput className='bg-transparent border border-gray-300 rounded-md py-2 px-4 my-0.5 w-full' placeholder='Confirm Password' />
                 
-                <StyledPressable className='bg-indigo-700 text-white py-2 w-full rounded-full my-0.5' onPress={() => router.push("/" as Href)}>
+                <StyledPressable className='bg-indigo-700 text-white py-2 w-full rounded-full my-0.5' onPress={() => router.push("/")}>
                     <StyledText className='text-white'> Register </StyledText>
                 </StyledPressable>
 
                 {/* para sa register */}
                 <StyledView className='flex flex-row items-center justify-center mt-4'>
                     <StyledText> I have an account. </StyledText>
-                    <StyledPressable onPress={() => router.push(routes.signin as Href)}>
+                    <StyledPressable onPress={() => router.push("/userAuth/signin")}>
                         <StyledText> Sign In Here </StyledText>
                     </StyledPressable>
                 </StyledView>

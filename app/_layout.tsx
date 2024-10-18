@@ -7,6 +7,7 @@ export default function RootLayout() {
 		<ColorSchemeProvider>
 			<Stack>
 				<Stack.Screen name='userAuth' />
+				<Stack.Screen name='highlights' />
 			</Stack>
 		</ColorSchemeProvider>
 	);
