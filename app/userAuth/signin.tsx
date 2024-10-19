@@ -1,8 +1,7 @@
 import { StyledView, StyledText, StyledTextInput, StyledButton, StyledPressable } from '../../components/StyledComponents'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useColorSchemeContext } from '../../context/ColorSchemeContext'
-import { useRouter, Href } from 'expo-router'
-import { routes } from '@/constants/routes';
+import { useRouter } from 'expo-router'
 
 // const = { test: "classname='flex flex-col items-center justify-center h-screen w-[100vw] px-8'" }
 
@@ -12,7 +11,7 @@ const Signin = () => {
 
     return (
         <SafeAreaView>
-            <StyledPressable onPress={() => router.push('/' as Href)}>
+            <StyledPressable onPress={() => router.push('/')}>
                 <StyledText>Back</StyledText>
             </StyledPressable>
 
@@ -20,14 +19,14 @@ const Signin = () => {
                 <StyledText className=''> Sign in </StyledText>
                 <StyledTextInput className='bg-transparent border border-gray-300 rounded-md py-2 px-4 my-0.5 w-full' placeholder='Email' />
                 <StyledTextInput className='bg-transparent border border-gray-300 rounded-md py-2 px-4 my-0.5 w-full' placeholder='Password' />
-                <StyledPressable className='bg-indigo-700 text-white py-2 w-full rounded-full my-0.5' onPress={() => console.log('Login')}>
+                <StyledPressable className='bg-indigo-700 text-white py-2 w-full rounded-full my-0.5' onPress={() => router.replace("/")}>
                     <StyledText className='text-white'>Login</StyledText>
                 </StyledPressable>
 
                 {/* para sa register */}
                 <StyledView className='flex flex-row items-center justify-center mt-4'>
                     <StyledText> I don't have an account. </StyledText>
-                    <StyledPressable onPress={() => router.push(routes.registration.part1 as Href)}>
+                    <StyledPressable onPress={() => router.push("/userAuth/registration/part1")}>
                         <StyledText> Register Here </StyledText>
                     </StyledPressable>
                 </StyledView>
