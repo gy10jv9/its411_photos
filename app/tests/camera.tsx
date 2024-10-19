@@ -14,10 +14,10 @@ export default function App() {
   if (!permission.granted) {
     // Camera permissions are not granted yet.
     return (
-      <View style={styles.container}>
-        <Text style={styles.message}>We need your permission to show the camera</Text>
-        <Button onPress={requestPermission} title="grant permission" />
-      </View>
+        <View style={styles.container}>
+            <Text style={styles.message}>We need your permission to show the camera</Text>
+            <Button onPress={requestPermission} title="grant permission" />
+        </View>
     );
   }
 
@@ -27,13 +27,13 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <CameraView style={styles.camera} facing={facing}>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
-            <Text style={styles.text}>Flip Camera</Text>
-          </TouchableOpacity>
-        </View>
-      </CameraView>
+        <CameraView style={styles.camera} facing={facing}>
+            <View style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
+                <Text style={styles.text}>Flip Camera</Text>
+            </TouchableOpacity>
+            </View>
+        </CameraView>
     </View>
   );
 }
