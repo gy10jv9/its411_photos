@@ -13,9 +13,10 @@ const Signin = () => {
         const result = await Login(formData);
         console.log(result)
         if (result) {
-          alert(result); 
+            router.push('/' as Href)
         } else {
-          alert("Registration successful!");
+          alert("Login successful!");
+          
         }
       };
     return (

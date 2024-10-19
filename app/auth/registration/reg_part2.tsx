@@ -15,11 +15,11 @@ const Reg_Part2 = () => {
 
   const handleRegister = async () => {
     const result = await Register(formData);
-    console.log(result)
     if (result) {
-      alert(result); 
+      router.push('/' as Href)
     } else {
       alert("Registration successful!");
+      
     }
   };
 

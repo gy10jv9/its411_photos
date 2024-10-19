@@ -12,9 +12,8 @@ const addDay = () => {
     const [errorMsg, setErrorMsg] = useState<string | null>('');
     const handleUpload = async () => {
       const result = await testImage(image);
-      console.log(result)
       if (result) {
-        alert(result); 
+        router.push('/' as Href)
       } else {
         alert("Registration successful!");
       }
@@ -49,14 +48,6 @@ const addDay = () => {
 
         if (!result.canceled) {
             setImage(result.assets[0].uri);
-        }
-    };
-
-    const uploadImage = async () => {
-        try {
-            testImage(image)
-        } catch (error) {
-            console.error('Upload failed:', error);
         }
     };
 
