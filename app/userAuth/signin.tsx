@@ -2,7 +2,6 @@ import { StyledView, StyledText, StyledTextInput, StyledButton, StyledPressable 
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useColorSchemeContext } from '../../context/ColorSchemeContext'
 import { useRouter, Href } from 'expo-router'
-import { routes } from '@/constants/routes';
 import { Login } from '@/functions/users/users';
 import { useRegistrationFormData } from './registration/regData';
 const Signin = () => {
@@ -13,10 +12,10 @@ const Signin = () => {
         const result = await Login(formData);
         console.log(result)
         if (result) {
-            router.push('/' as Href)
+            alert("Login successful!");
+            router.push('/' )
         } else {
           alert("Login successful!");
-          
         }
       };
     return (
