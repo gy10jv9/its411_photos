@@ -17,7 +17,6 @@ const Register = async (formData: any) => {
     return 'Error occurred during registration.'; 
   }
 };
-
 const Login = async (formData: any) => {
   try {
     const usersRef = collection(firestore(), 'Users');
