@@ -10,7 +10,15 @@ const addDay = () => {
     const [image, setImage] = useState<string | null>(null);
     const [location, setLocation] = useState<Location.LocationObject | null>(null);
     const [errorMsg, setErrorMsg] = useState<string | null>('');
-
+    const handleUpload = async () => {
+      const result = await testImage(image);
+      console.log(result)
+      if (result) {
+        alert(result); 
+      } else {
+        alert("Registration successful!");
+      }
+    };
     useEffect(() => {
         (async () => {
             let { status } = await Location.requestForegroundPermissionsAsync();
@@ -66,7 +74,7 @@ const addDay = () => {
                 {image && (
                     <>
                         <Image source={{ uri: image }} style={styles.image} />
-                        <StyledButton title="Upload Image" onPress={uploadImage} />
+                        <StyledButton title="Upload Image" onPress={handleUpload} />
                     </>
                 )}
             </StyledView>
