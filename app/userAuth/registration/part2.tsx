@@ -16,7 +16,7 @@ const Reg_Part2 = () => {
   const handleRegister = async () => {
     const result = await Register(formData);
     if (result) {
-      router.push('/' as Href)
+      router.push('/')
     } else {
       alert("Registration successful!");
       

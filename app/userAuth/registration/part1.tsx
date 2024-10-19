@@ -1,8 +1,7 @@
 import { StyledView, StyledText, StyledTextInput, StyledButton, StyledPressable } from '../../../components/StyledComponents';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useColorSchemeContext } from '../../../context/ColorSchemeContext';
-import { useRouter, Href } from 'expo-router';
-import { routes } from '@/constants/routes';
+import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { useRegistrationFormData } from './regData';
 const Reg_Part1  = () => {
@@ -13,7 +12,7 @@ const Reg_Part1  = () => {
         setFormData({ ...formData, [field]: value });
     };
     const handleNextStep = () => {
-        router.push(routes.registration.part2 as Href);
+        router.push("/userAuth/registration/part2")
     }
     return (
         <SafeAreaView>
