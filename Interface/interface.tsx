@@ -15,4 +15,5 @@ export interface User {
     address: string;
     photo?: string;
     createdAt: string | Date; 
+    date: string
 }

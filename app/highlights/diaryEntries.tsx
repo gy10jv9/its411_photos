@@ -32,9 +32,10 @@ const DiaryEntries = () => {
                     keyExtractor={entry => entry.id}
                     renderItem={({ item }) => (
                         <View style={styles.entryContainer}>
-                            <Text style={styles.entryTitle}>{item.title}</Text>
-                            <Text>{item.description}</Text>
-                            <Text>{item.address}</Text>
+                            <Text style={styles.entryTitle}>Title : {item.title}</Text>
+                            <Text>Description : {item.description}</Text>
+                            <Text>Address : {item.address}</Text>
+                            <Text>Date : {item.date}</Text>
                             {item.photo && (
                                 <Image
                                     source={{ uri: item.photo }}
@@ -42,9 +43,6 @@ const DiaryEntries = () => {
                                     resizeMode="cover"
                                 />
                             )}
-                            <Text style={styles.date}>
-                                {new Date(item.createdAt).toLocaleString()}
-                            </Text>
                         </View>
                     )}
                 />

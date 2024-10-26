@@ -17,6 +17,14 @@ const Reg_Part2 = () => {
     const result = await Register(formData);
     if (result && result.success) {
       alert("Registration successful!");
+      setFormData({
+        firstName: '',
+        lastName: '',
+        birthDate: '',
+        gender: '',
+        email: '',
+        password: ''
+      })
       router.push('/userAuth/signin');
     } else {
       alert(result.message || "An error occurred during registration."); 

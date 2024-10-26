@@ -9,47 +9,62 @@ const addDay = () => {
     const [image, setImage] = useState<string | null>(null);
     const [location, setLocation] = useState<Location.LocationObject | null>(null);
     const [errorMsg, setErrorMsg] = useState<string | null>('');
+    const todaydate = new Date(); // Current date
+    const formattedDate = todaydate.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
     const [formData, setFormData] = useState({
         title: "",
         address: "",
         description: "",
-        date: new Date()
+        date: formattedDate
     })
     useEffect(() => {
         (async () => {
-            let { status } = await Location.requestForegroundPermissionsAsync();
-            if (status !== 'granted') {
-                setErrorMsg('Permission to access location was denied');
-                return;
+            try {
+                const { status } = await Location.requestForegroundPermissionsAsync();
+                if (status !== 'granted') {
+                    setErrorMsg('Permission to access location was denied');
+                    return;
+                }
+                const location = await Location.getCurrentPositionAsync({});
+                setLocation(location);
+                const { latitude, longitude } = location.coords;
+                const address = await Location.reverseGeocodeAsync({ latitude, longitude });
+                if (address.length > 0) {
+                    const { formattedAddress } = address[0];
+                    const fullAddress = `${formattedAddress}`;
+                    console.log(fullAddress);
+                    setFormData({
+                        ...formData,
+                        address: fullAddress 
+                    });
+                }
+            } catch (error) {
+                setErrorMsg("Error retrieving location or address.");
+                console.error("Location Error:", error);
             }
-            let location = await Location.getCurrentPositionAsync({});
-            console.log(location);
-            const { latitude, longitude } = location.coords;
-            let address = await Location.reverseGeocodeAsync({ latitude, longitude });
-            
-            if (address.length > 0) {
-                const { formattedAddress } = address[0];
-                const fullAddress = `${formattedAddress}`;
-                setFormData({
-                    ...formData,
-                    address: fullAddress 
-                });
-            }
-            setLocation(location);
-        })
-        
+        })();
     }, []);
+    
     let text = 'Waiting..';
     if (errorMsg) {
         text = errorMsg;
     } else if (location) {
         text = JSON.stringify(location);
-        
     }
     const addday = async() =>{
         const result = await handleAddDay(formData, image);
     if (result && result.success) {
       alert("Upload Success");
+      setFormData({
+        ...formData,
+        title: "",
+        address: "",
+        description: "",
+      })
       router.push('/highlights/addDay');
     } else {
       alert(result); 
@@ -78,7 +93,7 @@ const addDay = () => {
             <Text> addDay </Text>
             <StyledTextInput
                 className="bg-transparent border border-gray-300 rounded-md py-2 px-4 my-0.5 w-full"
-                placeholder="Description"
+                placeholder="Title"
                 value={formData.title}
                 onChangeText={(value) => setFormData({ ...formData, title: value })}
                 />

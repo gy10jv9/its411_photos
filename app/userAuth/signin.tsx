@@ -13,6 +13,11 @@ const Signin = () => {
         console.log(result)
         if (result.success) {
           alert("Login successful!");
+          setFormData({
+            ...formData,
+            email: '',
+            password: ''
+          })
           router.push('/highlights/addDay');
         } else {
           alert(result); // Show the specific error message
