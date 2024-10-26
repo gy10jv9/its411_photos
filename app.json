@@ -21,7 +21,7 @@
       "googleServicesFile": "./google-services.json",
       "package": "com.lifeapp.android",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/lifelogo.png",
         "backgroundColor": "#ffffff"
       }
     },
