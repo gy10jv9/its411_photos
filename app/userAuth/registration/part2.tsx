@@ -15,11 +15,11 @@ const Reg_Part2 = () => {
 
   const handleRegister = async () => {
     const result = await Register(formData);
-    if (result) {
-      router.push('/userAuth/signin')
-    } else {
+    if (result && result.success) {
       alert("Registration successful!");
-      
+      router.push('/userAuth/signin');
+    } else {
+      alert(result.message || "An error occurred during registration."); 
     }
   };
 

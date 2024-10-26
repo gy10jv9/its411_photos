@@ -7,3 +7,12 @@ export interface User {
     email: string;
     password: string;
   }
+
+  export interface DiaryEntry {
+    id: string;
+    title: string;
+    description: string;
+    address: string;
+    photo?: string;
+    createdAt: string | Date; 
+}

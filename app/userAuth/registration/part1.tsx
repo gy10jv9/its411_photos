@@ -4,6 +4,9 @@ import { useColorSchemeContext } from '../../../context/ColorSchemeContext';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { useRegistrationFormData } from './regData';
+import { Button, Text } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
+import DatePicker from 'react-native-date-picker';
 const Reg_Part1  = () => {
     const { colorScheme, toggleColorScheme } = useColorSchemeContext();
     const router = useRouter();
@@ -14,6 +17,8 @@ const Reg_Part1  = () => {
     const handleNextStep = () => {
         router.push("/userAuth/registration/part2")
     }
+    const [date, setDate] = useState(new Date())
+    const [open, setOpen] = useState(false)
     return (
         <SafeAreaView>
             <StyledPressable onPress={() => router.push('/')}>
@@ -39,16 +44,37 @@ const Reg_Part1  = () => {
                 />
                 <StyledTextInput
                     className="bg-transparent border border-gray-300 rounded-md py-2 px-4 my-0.5 w-full"
-                    placeholder="Date of Birth"
+                    placeholder="Birth Date"
                     value={formData.birthDate}
                     onChangeText={(value) => handleInputChange('birthDate', value)}
                 />
-                <StyledTextInput
-                    className="bg-transparent border border-gray-300 rounded-md py-2 px-4 my-0.5 w-full"
-                    placeholder="Gender"
-                    value={formData.gender}
-                    onChangeText={(value) => handleInputChange('gender', value)}
-                />
+                {/* <Button title="Open" onPress={() => setOpen(true)} />
+                <DatePicker
+                modal
+                open={open}
+                date={date}
+                onConfirm={(selectedDate) => {
+                    setOpen(false);
+                    setDate(selectedDate);
+                }}
+                onCancel={() => {
+                    setOpen(false);
+                }}
+                /> way ni ga gana grrrr */}
+
+                <StyledView className="bg-transparent border border-gray-300 rounded-md py-2 px-4 my-0.5 w-full">
+                <Text style={{ color: 'gray' }}>Gender</Text>
+                <Picker
+                    selectedValue={formData.gender}
+                    onValueChange={(itemValue) => handleInputChange('gender', itemValue)}
+                    style={{ height: 50, width: '100%' }}
+                >
+                    <Picker.Item label="Select Gender" value="" />
+                    <Picker.Item label="Male" value="male" />
+                    <Picker.Item label="Female" value="female" />
+                    <Picker.Item label="Other" value="other" />
+                </Picker>
+            </StyledView>
 
                 <StyledPressable
                     className="bg-indigo-700 text-white py-2 w-full rounded-full my-0.5"

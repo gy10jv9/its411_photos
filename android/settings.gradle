@@ -44,7 +44,7 @@ if (getRNMinorVersion() >= 75) {
   }
 }
 
-rootProject.name = 'its411_unnamedApp'
+rootProject.name = 'L.I.F.E'
 
 dependencyResolutionManagement {
   versionCatalogs {
