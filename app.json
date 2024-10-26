@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "its411_unnamedApp",
-    "slug": "its411_unnamedApp",
+    "name": "L.I.F.E",
+    "slug": "ITS411Life",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/lifelogo.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {

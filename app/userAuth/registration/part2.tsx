@@ -16,7 +16,7 @@ const Reg_Part2 = () => {
   const handleRegister = async () => {
     const result = await Register(formData);
     if (result) {
-      router.push('/')
+      router.push('/userAuth/signin')
     } else {
       alert("Registration successful!");
       
