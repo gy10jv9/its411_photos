@@ -6,9 +6,9 @@ export default function RootLayout() {
 	return (
 		<ColorSchemeProvider>
 			<Stack>
-				<Stack.Screen name='userAuth' />
-				<Stack.Screen name='highlights' />
-				<Stack.Screen name='tests' />
+				<Stack.Screen name='userAuth' options={{headerShown: false}}/>
+				<Stack.Screen name='highlights' options={{headerShown: false}} />
+				<Stack.Screen name='tests'options={{headerShown: false}} />
 			</Stack>
 		</ColorSchemeProvider>
 	);
