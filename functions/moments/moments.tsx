@@ -1,4 +1,4 @@
-import { addDoc, collection, getDocs } from '@react-native-firebase/firestore';
+import { addDoc, collection, getDocs, query, where } from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage'; 
 import firestore from '@react-native-firebase/firestore';
 import { DiaryEntry } from '@/Interface/interface';
@@ -42,24 +42,26 @@ const handleAddDay = async (formData: any, image: string | null) => {
     return { success: false, message: 'Error occurred during registration.' }; 
     }
 };
-const fetchEntries = async () => {
+const fetchEntries = async (userUID: string | null) => {
     try {
         const diaryRef = collection(firestore(), 'DayDiary');
-        const snapshot = await getDocs(diaryRef);
+        const userQuery = query(diaryRef, where('userUID', '==', userUID));
+        const snapshot = await getDocs(userQuery);
+
         if (snapshot.empty) {
-            console.warn("No entries found in the 'DayDiary' collection.");
-            return { data: [], success: true, message: "No entries available." };
+            console.warn("No entries found for this user in the 'DayDiary' collection.");
+            return { data: [], success: true, message: "No entries available for this user." };
         }
 
         const entriesData = snapshot.docs.map(doc => ({
             id: doc.id,
             ...doc.data()
         })) as DiaryEntry[]; 
-        // console.log(entriesData)
+
         return { data: entriesData, success: true };
     } catch (err) {
         console.error("Error fetching diary entries: ", err);
-        return { success: false, message: 'Error occurred while fetching diary entries.', data: [] }; // Return empty array on error
+        return { success: false, message: 'Error occurred while fetching diary entries.', data: [] };
     }
 };
 export {testImage, handleAddDay ,fetchEntries}

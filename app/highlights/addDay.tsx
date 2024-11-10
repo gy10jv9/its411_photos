@@ -5,7 +5,9 @@ import { useState, useEffect } from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import * as Location from 'expo-location';
 import { handleAddDay } from '@/functions/moments/moments';
+import { useUser } from '@/userContext/userContext';
 const addDay = () => {
+    const {useruid} = useUser()
     const [image, setImage] = useState<string | null>(null);
     const [location, setLocation] = useState<Location.LocationObject | null>(null);
     const [errorMsg, setErrorMsg] = useState<string | null>('');
@@ -19,7 +21,8 @@ const addDay = () => {
         title: "",
         address: "",
         description: "",
-        date: formattedDate
+        date: formattedDate,
+        userUID: useruid
     })
     useEffect(() => {
         (async () => {
@@ -90,6 +93,7 @@ const addDay = () => {
             <StyledPressable onPress={() => router.push('/' as Href)}>
                 <StyledText>Back</StyledText>
             </StyledPressable>
+            <Text> Heloo User {useruid} </Text>
             <Text> addDay </Text>
             <StyledTextInput
                 className="bg-transparent border border-gray-300 rounded-md py-2 px-4 my-0.5 w-full"

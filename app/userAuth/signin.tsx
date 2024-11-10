@@ -4,23 +4,25 @@ import { useColorSchemeContext } from '../../context/ColorSchemeContext'
 import { useRouter, Href } from 'expo-router'
 import { Login } from '@/functions/users/users';
 import { useRegistrationFormData } from './registration/regData';
+import { useUser } from '@/userContext/userContext';
 const Signin = () => {
+  const { setUseruid } = useUser();
     const  { colorScheme, toggleColorScheme } = useColorSchemeContext()
     const router = useRouter()
     const { formData, setFormData } = useRegistrationFormData();
     const handleLogin = async () => {
         const result = await Login(formData);
-        console.log(result)
-        if (result.success) {
+        if (result.success === true && result.userUID) {
           alert("Login successful!");
           setFormData({
             ...formData,
             email: '',
             password: ''
           })
+          setUseruid(result.userUID ?? null);
           router.push('/highlights/addDay');
         } else {
-          alert(result); // Show the specific error message
+          alert(result.message);
         }
       };
     return (

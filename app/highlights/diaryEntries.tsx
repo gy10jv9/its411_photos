@@ -3,15 +3,16 @@ import { View, Text, FlatList, ActivityIndicator, Image, StyleSheet } from 'reac
 import { collection, getDocs } from 'firebase/firestore';
 import { fetchEntries } from '@/functions/moments/moments';
 import { DiaryEntry } from '@/Interface/interface';
+import { useUser } from '@/userContext/userContext';
 
 const DiaryEntries = () => {
     const [entries, setEntries] = useState<DiaryEntry[]>([]);
     const [loading, setLoading] = useState(true);
-
+    const {useruid} = useUser()
     useEffect(() => {
         const loadEntries = async () => {
             setLoading(true);
-            const result = await fetchEntries();
+            const result = await fetchEntries(useruid);
             if (result.success) {
                 setEntries(result.data);
             } else {
