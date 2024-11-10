@@ -17,3 +17,5 @@ expo run:android (dapat naka connect device nyo sa android studio either wireles
 
 
 
+
+
