@@ -1,0 +1,19 @@
+BUILD
+
+(device)
+on developer mode sa phone nyo
+enable usb debugging or wireless (depende kung ano way nyo pag build)
+
+(android studio)
+open android studio
+open any project
+sa right side nav may ara da device manager
+click ang device manager tas magwa da inyo nga device(if wala double check developer options sa inyo device)
+if detected na, follow through nyo lang ni ang steps sa dalom
+
+npx expo prebuild --clean
+
+expo run:android (dapat naka connect device nyo sa android studio either wireless or usb)
+
+
+
