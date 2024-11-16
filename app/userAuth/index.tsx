@@ -1,12 +1,17 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { StyledSafeAreaView, StyledText, StyledPressable } from "@/components/StyledComponents"
+import { useRouter } from "expo-router"
 
-const getStarted = () => {
+const GetStartedPage = () => {
+    const router = useRouter()
+
     return (
-        <View>
-            <Text>getStarted</Text> 
-        </View>
+        <StyledSafeAreaView>
+            <StyledText> getStarted </StyledText>
+            <StyledPressable onPress={() => router.push('/userAuth/signin')}>
+                <StyledText> Get Started </StyledText>
+            </StyledPressable>
+        </StyledSafeAreaView>
     )
 }
 
-export default getStarted
+export default GetStartedPage
