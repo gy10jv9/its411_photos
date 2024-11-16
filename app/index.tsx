@@ -20,9 +20,9 @@ const Home = () => {
 				<StyledPressable className="bg-indigo-700 text-white py-2 w-full rounded-full my-0.5" onPress={() => router.push("/userAuth/registration/part1")}>
 					<StyledText className="text-white"> Register </StyledText>
 				</StyledPressable>    
-				<StyledPressable className="bg-indigo-700 text-white py-2 w-full rounded-full my-0.5" onPress={() => router.push("/highlights/addDay")}>
+				{/* <StyledPressable className="bg-indigo-700 text-white py-2 w-full rounded-full my-0.5" onPress={() => router.push("/highlights/addDay")}>
 					<StyledText className="text-white"> Add Highlight </StyledText>
-				</StyledPressable>
+				</StyledPressable> */}
 				<StyledPressable className="bg-indigo-700 text-white py-2 w-full rounded-full my-0.5" onPress={() => router.push("/tests/camera")}>
 					<StyledText className="text-white"> test camera </StyledText>
 				</StyledPressable>         

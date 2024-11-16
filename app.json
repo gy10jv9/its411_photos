@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "its411_unnamedApp",
-    "slug": "its411_unnamedApp",
+    "name": "L.I.F.E",
+    "slug": "ITS411Life",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/lifelogo.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
@@ -21,7 +21,7 @@
       "googleServicesFile": "./google-services.json",
       "package": "com.lifeapp.android",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/lifelogo.png",
         "backgroundColor": "#ffffff"
       }
     },
@@ -32,7 +32,8 @@
     },
     "plugins": [
       "expo-router",
-      "@react-native-firebase/app"
+      "@react-native-firebase/app",
+      "@react-native-firebase/auth",
     ],
     "experiments": {
       "typedRoutes": true
