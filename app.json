@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "L.I.F.E",
-    "slug": "ITS411Life",
+    "slug": "life",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/lifelogo.png",
@@ -33,10 +33,19 @@
     "plugins": [
       "expo-router",
       "@react-native-firebase/app",
-      "@react-native-firebase/auth",
+      "@react-native-firebase/auth"
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "074357bc-2dd9-4bae-b29e-2c64cecb8f81"
+      }
+    },
+    "owner": "eannnnn"
   }
 }
