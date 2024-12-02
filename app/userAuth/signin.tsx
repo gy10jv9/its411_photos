@@ -55,6 +55,9 @@ const Signin = () => {
                         <StyledText> Register Here </StyledText>
                     </StyledPressable>
                 </StyledView>
+				<StyledPressable onPress={() => {router.replace("/home");}}>
+                        <StyledText> bypass authentication </StyledText>
+                </StyledPressable>
             </StyledView>
         </SafeAreaView>
   );
