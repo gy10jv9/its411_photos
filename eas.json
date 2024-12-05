@@ -8,20 +8,12 @@
       "developmentClient": true,
       "distribution": "internal"
     },
-    
     "preview": {
       "distribution": "internal",
+      "android":{
       "buildType": "apk"
-    },
-    
-    "production": {
-      "buildType": "apk" // Add this line
-      // Uncomment and set autoIncrement if needed
-      // "autoIncrement": true
     }
+    },
+    "production":{}
   }
-  // Uncomment and configure submit if you plan to submit to app stores
-  // "submit": {
-  //   "production": {}
-  // }
 }
