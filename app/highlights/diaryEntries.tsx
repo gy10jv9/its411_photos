@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, ActivityIndicator, Image, StyleSheet } from 'react-native';
-import { collection, getDocs } from 'firebase/firestore';
+import { FlatList, ActivityIndicator, Image } from 'react-native';
 import { fetchEntries } from '@/functions/moments/moments';
 import { DiaryEntry } from '@/Interface/interface';
 import { useUser } from '@/userContext/userContext';
-
+import { StyledPressable, StyledText, StyledView } from '@/components/StyledComponents';
+import { StyleSheet } from 'react-native';
+import { useRouter } from 'expo-router';
 const DiaryEntries = () => {
     const [entries, setEntries] = useState<DiaryEntry[]>([]);
     const [loading, setLoading] = useState(true);
-    const {useruid} = useUser()
+    const { useruid } = useUser();
+    const router = useRouter()
     useEffect(() => {
         const loadEntries = async () => {
             setLoading(true);
@@ -16,27 +18,41 @@ const DiaryEntries = () => {
             if (result.success) {
                 setEntries(result.data);
             } else {
-                alert(result.message || "Error");
+                alert(result.message || 'Error');
             }
-            setLoading(false); 
+            setLoading(false);
         };
         loadEntries();
     }, []);
+
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Diary Entries</Text>
-            {entries.length === 0 ? (
-                <Text>No diary entries found.</Text>
+        <StyledView className="flex-1 bg-white p-4">
+            <StyledText className="text-2xl font-bold mb-4">Diary Entries</StyledText>
+            <StyledPressable
+            onPress={() => router.push('/highlights/addDay')}
+            className="p-4"
+        >
+            <StyledText>
+                Home
+            </StyledText>
+        </StyledPressable>
+            {loading ? (
+                <StyledView className="flex-1 justify-center items-center">
+                    <ActivityIndicator size="large" color="#0000ff" />
+                    <StyledText className="mt-2 text-gray-600">Loading...</StyledText>
+                </StyledView>
+            ) : entries.length === 0 ? (
+                <StyledText className="text-center text-gray-500">No diary entries found.</StyledText>
             ) : (
                 <FlatList
                     data={entries}
-                    keyExtractor={entry => entry.id}
+                    keyExtractor={(entry) => entry.id}
                     renderItem={({ item }) => (
-                        <View style={styles.entryContainer}>
-                            <Text style={styles.entryTitle}>Title : {item.title}</Text>
-                            <Text>Description : {item.description}</Text>
-                            <Text>Address : {item.address}</Text>
-                            <Text>Date : {item.date}</Text>
+                        <StyledView className="mb-4 p-4 border border-gray-300 rounded-lg">
+                            <StyledText className="text-lg font-semibold">Title: {item.title}</StyledText>
+                            <StyledText className="text-gray-700">Description: {item.description}</StyledText>
+                            <StyledText className="text-gray-700">Address: {item.address}</StyledText>
+                            <StyledText className="text-gray-500 text-sm">Date: {item.date}</StyledText>
                             {item.photo && (
                                 <Image
                                     source={{ uri: item.photo }}
@@ -44,13 +60,15 @@ const DiaryEntries = () => {
                                     resizeMode="cover"
                                 />
                             )}
-                        </View>
+                        </StyledView>
                     )}
                 />
             )}
-        </View>
+        </StyledView>
     );
 };
+
+
 
 const styles = StyleSheet.create({
     container: {
@@ -85,9 +103,10 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: '#666',
     },
-    errorText: {
-        color: 'red',
-        textAlign: 'center',
+    loadingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 });
 

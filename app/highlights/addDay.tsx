@@ -1,4 +1,4 @@
-import { Text, StyleSheet, Image, FlatList } from 'react-native';
+import { Text, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native';
 import { StyledPressable, StyledText, StyledSafeAreaView, StyledButton, StyledView, StyledTextInput } from '@/components/StyledComponents';
 import { router, Href } from 'expo-router';
 import { useState, useEffect } from 'react';
@@ -6,7 +6,8 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Location from 'expo-location';
 import { handleAddDay } from '@/functions/moments/moments';
 import { useUser } from '@/userContext/userContext';
-const addDay = () => {
+import Burger from '../burger/burger';
+const AddDay: React.FC = () => {
     const {useruid} = useUser()
     const [image, setImage] = useState<string | null>(null);
     const [location, setLocation] = useState<Location.LocationObject | null>(null);
@@ -88,41 +89,76 @@ const addDay = () => {
     const gotoDiary = async () =>{
         router.push('/highlights/diaryEntries')
     }
+    const [burger, setBurger] = useState(false)
+    const openBurger = () =>{
+        setBurger(true)
+    }
+    const closeBurger = () => setBurger(false);
     return (
-        <StyledSafeAreaView>
-            <StyledPressable onPress={() => router.push('/' as Href)}>
-                <StyledText>Back</StyledText>
-            </StyledPressable>
-            <Text> Heloo User {useruid} </Text>
-            <Text> addDay </Text>
+        <StyledSafeAreaView className="flex-1 bg-gray-50 px-6 py-4">
+            <TouchableOpacity onPress={openBurger}>
+            <StyledText className="text-lg font-semibold mb-2">
+                Open Burger
+            </StyledText>
+            </TouchableOpacity>
+
+            {burger && (
+            <StyledView className="absolute bg-white shadow-md rounded-md z-20">
+                <Burger closeBurger = {closeBurger}/>
+                 {/* <TouchableOpacity onPress={closeBurger}>
+            <StyledText className="text-lg font-semibold mb-2">
+                
+            </StyledText>
+            </TouchableOpacity> */}
+            </StyledView>
+            )}
+            <StyledText className="text-lg font-semibold mb-2">
+                Hello User {useruid}
+            </StyledText>
+            <StyledText className="text-xl font-bold mb-4">Add Day</StyledText>
             <StyledTextInput
-                className="bg-transparent border border-gray-300 rounded-md py-2 px-4 my-0.5 w-full"
+                className="bg-white border border-gray-300 rounded-md py-2 px-4 mb-4 w-full shadow-sm"
                 placeholder="Title"
                 value={formData.title}
                 onChangeText={(value) => setFormData({ ...formData, title: value })}
-                />
+            />
             <StyledTextInput
-                className="bg-transparent border border-gray-300 rounded-md py-2 px-4 my-0.5 w-full"
+                className="bg-white border border-gray-300 rounded-md py-2 px-4 mb-4 w-full shadow-sm"
                 placeholder="Description"
                 value={formData.description}
-                onChangeText={(value) => setFormData({ ...formData, description: value })}
-                />
-                <StyledView style={styles.container}>
+                onChangeText={(value) =>
+                    setFormData({ ...formData, description: value })
+                }
+            />
+            <StyledView className="mt-4 mb-6 flex items-center">
+                {/* Placeholder for additional styles */}
             </StyledView>
-            {/* <StyledView>
-                <StyledText>{text}</StyledText>
-            </StyledView> */}
-            <StyledView>
-                <StyledButton title="Pick an image from camera roll" onPress={pickImage} />
+            <StyledView className="space-y-4">
+                <StyledButton
+                    title="Pick an image from camera roll"
+                    onPress={pickImage}
+                    className="bg-indigo-600 text-white py-2 px-4 rounded-md"
+                />
                 {image && (
                     <>
-                        <Image source={{ uri: image }} style={styles.image} />
-                        <StyledButton title="Upload Image" onPress={addday} />
+                        <Image
+                            source={{ uri: image }}
+                            style={{ height: 200, width: '100%', borderRadius: 10 }}
+                            // className="mt-4"
+                        />
+                        <StyledButton
+                            title="Upload Image"
+                            onPress={addday}
+                            className="bg-green-600 text-white py-2 px-4 rounded-md"
+                        />
                     </>
                 )}
-                <StyledButton title="View Diary" onPress={gotoDiary} />
+                <StyledButton
+                    title="View Diary"
+                    onPress={gotoDiary}
+                    className="bg-blue-600 text-white py-2 px-4 rounded-md"
+                />
             </StyledView>
-            
         </StyledSafeAreaView>
     );
 };
@@ -139,4 +175,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default addDay;
+export default AddDay;
