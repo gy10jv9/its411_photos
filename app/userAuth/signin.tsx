@@ -75,7 +75,7 @@ const Signin = () => {
           </StyledPressable>
         </StyledView>
 
-        <StyledPressable className="mt-6">
+        <StyledPressable className="mt-6" onPress={() => router.replace("/home")}>
           <StyledText className="text-gray-500 underline">Bypass Authentication</StyledText>
         </StyledPressable>
       </StyledView>
