@@ -1,5 +1,6 @@
 import { StyledScrollView, StyledText, StyledView, StyledPressable } from "@/components/StyledComponents"
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet } from 'react-native'
+import { useState } from "react"
 
 const HomePage = () => {
 
@@ -20,6 +21,13 @@ const HomePage = () => {
                     <StyledText> photo here </StyledText>
                 </StyledView>
             </StyledView>
+
+            <StyledPressable style={styles.button}>
+                <StyledText>day</StyledText>
+            </StyledPressable>
+            <StyledPressable style={styles.button}>
+                <StyledText>month</StyledText>
+            </StyledPressable>
         </StyledScrollView>
     )
 }
@@ -35,10 +43,17 @@ const styles = StyleSheet.create({
     },
     photoCard: {
         height: 100,
-        width: '30%',
+        width: '32%',
         borderWidth: 1,
         borderColor: 'black',
         borderStyle: 'solid',
-        marginTop: 10,
+        marginTop: 8,
+    },
+    button: {
+        backgroundColor: '#ccc',
+        borderRadius: 5,
+        padding: 10,
+        margin: 10,
+        alignItems: 'center',
     }
 });
