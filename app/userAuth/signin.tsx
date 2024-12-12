@@ -24,7 +24,7 @@ const Signin = () => {
           password: ''
         });
         setUseruid(result.userUID ?? null);
-        router.push('/highlights/addDay');
+        router.push('/home');
       } else {
         alert(result.message);
       }

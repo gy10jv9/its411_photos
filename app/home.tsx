@@ -1,13 +1,26 @@
 import { StyledScrollView, StyledText, StyledView, StyledPressable } from "@/components/StyledComponents"
-import { StyleSheet } from 'react-native'
+import { StyleSheet, TouchableOpacity } from 'react-native'
 import { useState } from "react"
+import { useRouter } from "expo-router"
+import Burger from "./burger/burger"
 
 const HomePage = () => {
-
+    const router=useRouter()
+    const [burger, setBurger] = useState(false);
+    
+        const openBurger = () => {
+            setBurger(true);
+        };
+    
+        const closeBurger = () => setBurger(false);
     return (
-        <StyledScrollView className="flex-1 px-4 py-4">
+        <StyledView className="flex-1 pt-10 h-screen w-screen bg-orange-300">
+            <TouchableOpacity onPress={openBurger}>
+                            <StyledText className="text-lg font-semibold mb-2">Open Burger</StyledText>
+            </TouchableOpacity>
+             
             <StyledText className="mb-4">Indicate day here</StyledText>
-            <StyledView style={styles.grid} className="">
+            {/* <StyledView style={styles.grid} className="">
                 <StyledView style={styles.photoCard}>
                     <StyledText> photo here </StyledText>
                 </StyledView>
@@ -20,15 +33,25 @@ const HomePage = () => {
                 <StyledView style={styles.photoCard}>
                     <StyledText> photo here </StyledText>
                 </StyledView>
-            </StyledView>
-
+            </StyledView> */}
             <StyledPressable style={styles.button}>
                 <StyledText>day</StyledText>
             </StyledPressable>
             <StyledPressable style={styles.button}>
                 <StyledText>month</StyledText>
             </StyledPressable>
-        </StyledScrollView>
+            <StyledPressable style={styles.button}>
+                <StyledText>year</StyledText>
+            </StyledPressable>
+            <StyledPressable onPress={() => router.push('/highlights/addDay')} className="bg-blue-500 py-5 items-center rounded-xl">
+                <StyledText className="text-white">Add A Moment</StyledText>
+            </StyledPressable>
+            {burger && (
+                <StyledView className="absolute shadow-md rounded-md z-20">
+                    <Burger closeBurger={closeBurger} />
+                </StyledView>
+            )}
+        </StyledView>
     )
 }
 
