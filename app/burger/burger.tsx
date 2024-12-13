@@ -23,7 +23,7 @@ const Burger: React.FC<BurgerProps> = ({ closeBurger }) => {
   };
 
   return (
-    <StyledSafeAreaView className="w-screen h-screen p-0 bg-transparent">
+    <StyledSafeAreaView className="w-screen h-screen p-0 bg-transparent flex flex-row-reverse">
       {/* Logo Section */}
       <StyledView className='h-screen w-3/5 opacity-100 bg-white'> 
       <StyledView className="w-full flex-2 justify-center items-center">
@@ -47,7 +47,7 @@ const Burger: React.FC<BurgerProps> = ({ closeBurger }) => {
           <Text style={styles.buttonText}>Add Day</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, styles.logoutButton]} onPress={() => router.push('/')}>
-          <StyledText className='text-white pl-2 text-xl'>Logout</StyledText>
+          <StyledText className='text-white pr-2 text-xl text-right'>Logout</StyledText>
         </TouchableOpacity>
       </StyledView>
       </StyledView>
@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     paddingLeft:10,
     fontWeight: '600',
+    textAlign: 'right'
   },
   logoutButton: {
     backgroundColor: '#dc3545',

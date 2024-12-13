@@ -7,7 +7,7 @@ import { useRegistrationFormData } from './registration/regData';
 import { useUser } from '@/userContext/userContext';
 
 const Signin = () => {
-  const { useruid, setUseruid } = useUser();
+  const { useruid, username, setUser } = useUser();
   const router = useRouter();
   const { formData, setFormData } = useRegistrationFormData();
   const [loading, setLoading] = useState(false); 
@@ -16,14 +16,14 @@ const Signin = () => {
     setLoading(true); // Start loading
     try {
       const result = await Login(formData);
-      if (result.success === true && result.userUID) {
+      if (result.success === true && result.data) {
         alert("Login successful!");
         setFormData({
           ...formData,
           email: '',
           password: ''
         });
-        setUseruid(result.userUID ?? null);
+        setUser(result.data.useruid ?? null, result.data.username ?? null);
         router.push('/home');
       } else {
         alert(result.message);

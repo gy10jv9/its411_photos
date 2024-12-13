@@ -55,11 +55,16 @@ const Login = async (formData: any) => {
     if (!userUID) {
       return { success: false, message: "Wala uid." };
     }
-    console.log("pers");
+    const data = {
+      useruid: userUID,
+      username: ""
+    }
     const q = query(usersData, where('userUID', '==', userUID));
     const querySnapshot = await getDocs(q);
     for (const docSnapshot of querySnapshot.docs) {
       const userDoc = docSnapshot.data();
+      data.username = userDoc.firstName
+      console.log(userDoc)
       if (userDoc.firstLogin) {
         console.log(`Welcome, ${userDoc.firstName || "User"}!`);
         const userDocRef = doc(firestore(), 'UsersData', docSnapshot.id);
@@ -67,7 +72,7 @@ const Login = async (formData: any) => {
       }
     }
     console.log("last");
-    return { success: true, userUID };
+    return { success: true, data };
   } catch (error: any) {
     console.error("Error during login:", error);
     if (error.code === 'auth/user-not-found') {
