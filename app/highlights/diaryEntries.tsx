@@ -29,7 +29,7 @@ const DiaryEntries = () => {
         <StyledView className="flex-1 bg-white p-4">
             <StyledText className="text-2xl font-bold mb-4">Diary Entries</StyledText>
             <StyledPressable
-            onPress={() => router.push('/highlights/addDay')}
+            onPress={() => router.push('/home')}
             className="p-4"
         >
             <StyledText>

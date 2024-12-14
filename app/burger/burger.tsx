@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { StyledSafeAreaView, StyledView } from '@/components/StyledComponents';
+import { StyledSafeAreaView, StyledText, StyledView } from '@/components/StyledComponents';
 import { useRouter } from 'expo-router';
 
 // Define the type for props
@@ -23,35 +23,33 @@ const Burger: React.FC<BurgerProps> = ({ closeBurger }) => {
   };
 
   return (
-    <StyledSafeAreaView className="w-screen h-screen p-0 bg-transparent z-99">
+    <StyledSafeAreaView className="w-screen h-screen p-0 bg-transparent flex flex-row-reverse">
       {/* Logo Section */}
-      <StyledView className="w-3/4 flex-1 justify-center items-center">
-        <TouchableOpacity style={styles.button} onPress={closeBurger}>
+      <StyledView className='h-screen w-3/5 opacity-100 bg-white'> 
+      <StyledView className="w-full flex-2 justify-center items-center">
+        <TouchableOpacity onPress={closeBurger}>
           <Image source={require('../../assets/images/lifelogo.png')} style={styles.logo} />
         </TouchableOpacity>
       </StyledView>
       
       {/* Navigation Section */}
-      <StyledView className="bg-red-300 w-3/4 flex-2 justify-evenly items-center">
-        <TouchableOpacity style={styles.button} onPress={() => router.push('/')}>
+      <StyledView className=" w-full flex-3 justify-evenly items-center">
+        <TouchableOpacity style={styles.button} onPress={() => router.push('/home')}>
           <Text style={styles.buttonText}>Home</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => router.push('/')}>
+        <TouchableOpacity style={styles.button} onPress={() => router.push('/home')}>
           <Text style={styles.buttonText}>Profile</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => router.push('/')}>
+        <TouchableOpacity style={styles.button} onPress={() => router.push('/highlights/diaryEntries')}>
           <Text style={styles.buttonText}>Entries</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => router.push('/')}>
+        <TouchableOpacity style={styles.button} onPress={() => router.push('/highlights/addDay')}>
           <Text style={styles.buttonText}>Add Day</Text>
         </TouchableOpacity>
-      </StyledView>
-      
-      {/* Logout Section */}
-      <StyledView className="bg-blue-300 w-3/4 flex-1 justify-center items-center">
         <TouchableOpacity style={[styles.button, styles.logoutButton]} onPress={() => router.push('/')}>
-          <Text style={styles.buttonText}>Logout</Text>
+          <StyledText className='text-white pr-2 text-xl text-right'>Logout</StyledText>
         </TouchableOpacity>
+      </StyledView>
       </StyledView>
     </StyledSafeAreaView>
     
@@ -61,32 +59,23 @@ const Burger: React.FC<BurgerProps> = ({ closeBurger }) => {
 export default Burger;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: '#f8f9fa',
-  },
-  logoContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 24,
-  },
   logo: {
-    width: 40,
-    height: 40,
-    marginRight: 8,
+    width: 210,
+    height: 200,
+    marginRight: 0,
   },
   button: {
-    padding: 16,
+    paddingVertical: 16,
     borderRadius: 8,
-    backgroundColor: '#007bff',
     marginVertical: 8,
-    alignItems: 'center',
+    width:200,
   },
   buttonText: {
-    color: '#fff',
-    fontSize: 16,
+    color: '#000',
+    fontSize: 20,
+    paddingLeft:10,
     fontWeight: '600',
+    textAlign: 'right'
   },
   logoutButton: {
     backgroundColor: '#dc3545',
