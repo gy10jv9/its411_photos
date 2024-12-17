@@ -119,7 +119,6 @@ const HomePage = () => {
                 ListFooterComponent={(
                     <StyledView className="p-2">
                         {/* Buttons */}
-                        <StyledText className="mb-4">Indicate day here</StyledText>
                         <StyledPressable style={styles.button}>
                             <StyledText>day</StyledText>
                         </StyledPressable>

@@ -10,7 +10,7 @@ import Burger from '../burger/burger';
 import React from 'react';
 
 const AddDay: React.FC = () => {
-    const { useruid } = useUser();
+    const { useruid, username } = useUser();
     const [image, setImage] = useState<string | null>(null);
     const [location, setLocation] = useState<Location.LocationObject | null>(null);
     const [errorMsg, setErrorMsg] = useState<string | null>('');
@@ -126,8 +126,9 @@ const AddDay: React.FC = () => {
 
     const closeBurger = () => setBurger(false);
 
+
     return (
-        <StyledSafeAreaView className="flex-1 bg-gray-50 px-6 py-4">
+        <StyledSafeAreaView className="bg-white px-6">
              {loading ? (
             <StyledText>Loading location...</StyledText>
         ) : (
@@ -136,18 +137,25 @@ const AddDay: React.FC = () => {
                 <StyledText>Uploading...</StyledText>
             ) : (
                 <>
-                 <TouchableOpacity onPress={openBurger}>
-                <StyledText className="text-lg font-semibold mb-2">Open Burger</StyledText>
+                
+            {/* <TouchableOpacity onPress={openBurger}>
+                <StyledText className="text-lg font-semibold mb-2"> Open Burger </StyledText>
             </TouchableOpacity>
 
             {burger && (
                 <StyledView className="absolute shadow-md rounded-md z-20">
                     <Burger closeBurger={closeBurger} />
                 </StyledView>
-            )}
+            )} */}
 
-            <StyledText className="text-lg font-semibold mb-2">Hello User {useruid}</StyledText>
-            <StyledText className="text-xl font-bold mb-4">Add Day</StyledText>
+            {/* profile sang user prehas sa instagram ah */}
+            <StyledView className="flex-row items-center mb-4">
+                <Image source={require('../../assets/images/defaults/profile.jpg')} style={styles.profile} />
+                <StyledView className="ml-4">
+                    <StyledText className="text-lg font-semibold">{username}</StyledText>
+                    <StyledText className="text-sm text-gray-500"> userId: {useruid} </StyledText>
+                </StyledView>
+            </StyledView>
 
             <StyledTextInput
                 className="bg-white border border-gray-300 rounded-md py-2 px-4 mb-4 w-full shadow-sm"
@@ -208,6 +216,12 @@ const AddDay: React.FC = () => {
     );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    profile: {
+        width: 50,
+        height: 50,
+        borderRadius: 50,
+    },
+});
 
 export default AddDay;
