@@ -1,5 +1,5 @@
 import { StyledScrollView, StyledText, StyledView, StyledPressable, StyledSafeAreaView } from "@/components/StyledComponents";
-import { ActivityIndicator, StyleSheet, TouchableOpacity } from 'react-native';
+import { ActivityIndicator, Alert, StyleSheet, TouchableOpacity } from 'react-native';
 import { useEffect, useState } from "react";
 import { useRouter } from "expo-router";
 import Burger from "./burger/burger";
@@ -9,6 +9,7 @@ import { DiaryEntry } from "@/Interface/interface";
 import { fetchEntries } from "@/functions/moments/moments";
 import { FlatList } from "react-native";
 import { parse, isValid } from 'date-fns';
+import { useMoment } from "@/context/MomentContext";
 
 const HomePage = () => {
     const { useruid, username, setUser } = useUser();
@@ -18,7 +19,7 @@ const HomePage = () => {
     const closeBurger = () => setBurger(false);
     const [entries, setEntries] = useState<DiaryEntry[]>([]);
     const [loading, setLoading] = useState(true);
-
+    const {setMomentId} = useMoment()
     useEffect(() => {
         const loadEntries = async () => {
             setLoading(true);
@@ -27,8 +28,6 @@ const HomePage = () => {
                 const sortedEntries = result.data.sort((a, b) => {
                     const dateA = parse(a.date.trim(), 'MMMM dd, yyyy', new Date());
                     const dateB = parse(b.date.trim(), 'MMMM dd, yyyy', new Date());
-
-                    // Check if dates are valid
                     if (!isValid(dateA)) {
                         console.error("Invalid date format", a.date);
                         return 1; 
@@ -49,13 +48,18 @@ const HomePage = () => {
         loadEntries();
     }, [useruid]);
 
+    const handleViewMoment = (id: any) => {
+        setMomentId(id)
+        router.push('/highlights/viewMoment')
+      };
+           
     return (
-        <StyledView className="flex-1 pt-10 w-screen h-full">
+        <StyledView className="flex-1 w-screen h-full p-1">
             <FlatList
                 ListHeaderComponent={(
-                    <StyledView>
+                    <StyledView className="pt-5 bg-orange-200">
                         {/* Top Section */}
-                        <StyledView className="h-28 w-full flex flex-wrap p-2">
+                        <StyledView className="h-20 w-full flex flex-wrap p-2 ">
                             {/* Left */}
                             <StyledView className="w-2/3 h-full flex justify-center">
                                 <StyledText className="text-2xl mb-1">
@@ -74,17 +78,17 @@ const HomePage = () => {
                         </StyledView>
 
                         {/* Middle Section */}
-                        <StyledView className="h-28 w-full flex flex-wrap p-2">
+                        <StyledView className="h-12 w-full flex flex-wrap p-2 bg-green-200">
                             {/* Left */}
                             <StyledView className="w-2/3 h-full flex justify-center">
-                                <StyledText className="text-xl">
+                                <StyledText className="text-l">
                                     Your Latest Moments
                                 </StyledText>
                             </StyledView>
                             {/* Right */}
                             <StyledView className="w-1/3 h-full flex flex-row justify-center items-center">
                                 <TouchableOpacity onPress={() => router.push('/highlights/diaryEntries')} style={{ marginLeft: 'auto' }}>
-                                    <StyledText>View all</StyledText>
+                                    <StyledText className="text-sm">View all</StyledText>
                                 </TouchableOpacity>
                             </StyledView>
                         </StyledView>
@@ -94,22 +98,26 @@ const HomePage = () => {
                 keyExtractor={(entry) => entry.id}
                 numColumns={2}
                 renderItem={({ item }) => (
-                    <StyledView className="h-full mb-4 p-4 border border-gray-300 rounded-lg w-1/2">
-                        <StyledText className="text-lg font-semibold h-8">Title: {item.title}</StyledText>
-                        <StyledText className="text-gray-700 h-16">Description: {item.description}</StyledText>
-                        <StyledText className="text-gray-700 h-38">Address: {item.address}</StyledText>
-                        <StyledText className="text-gray-500 text-sm h-5">Date: {item.date}</StyledText>
+                    <StyledView className="rounded-lg w-1/2 flex justify-around p-1 ">
+                        <StyledView className="">
                         {item.photo && (
-                            <Image
+                            <TouchableOpacity onPress={()=>handleViewMoment(item.id)}>
+                                 <Image
                                 source={{ uri: item.photo }}
                                 style={styles.image}
                                 resizeMode="cover"
                             />
+                            </TouchableOpacity>
+
                         )}
+                        
+                        <StyledText className="text-left px-2 py-1">{item.title}</StyledText>
+                        </StyledView>
+                        
                     </StyledView>
                 )}
                 ListFooterComponent={(
-                    <StyledView>
+                    <StyledView className="p-2">
                         {/* Buttons */}
                         <StyledText className="mb-4">Indicate day here</StyledText>
                         <StyledPressable style={styles.button}>
@@ -176,8 +184,8 @@ const styles = StyleSheet.create({
     },
     image: {
         width: '100%',
-        height: 200,
-        borderRadius: 8,
-        marginTop: 10,
+        height: 100,
+        borderRadius: 5,
+        objectFit: 'cover'
     },
 });

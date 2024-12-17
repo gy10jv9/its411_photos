@@ -6,7 +6,7 @@ import { useUser } from '@/userContext/userContext';
 import { StyledPressable, StyledText, StyledView } from '@/components/StyledComponents';
 import { StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
-const DiaryEntries = () => {
+const DiaryEntries: React.FC = () => {
     const [entries, setEntries] = useState<DiaryEntry[]>([]);
     const [loading, setLoading] = useState(true);
     const { useruid } = useUser();
