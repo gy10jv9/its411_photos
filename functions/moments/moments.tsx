@@ -2,6 +2,7 @@ import { addDoc, collection, doc, getDoc, getDocs, query, where } from '@react-n
 import storage from '@react-native-firebase/storage'; 
 import firestore from '@react-native-firebase/firestore';
 import { DiaryEntry } from '@/Interface/interface';
+const moment = require('moment')
 const testImage = async (image: string | null) => {
     if (!image) {
         console.error('No image selected');
@@ -32,7 +33,7 @@ const handleAddDay = async (formData: any, image: string | null) => {
         const diaryEntry = {
             ...formData,
             photo: imageUrl,
-            createdAt: new Date(),
+            // createdAt: moment().format('YYYY-MM-DD HH:mm:ss')
         };       
         await addDoc(diaryRef, diaryEntry); 
         console.log("Diary entry added successfully:", diaryEntry);
@@ -91,6 +92,31 @@ const fetchEntryById = async (momentId: string | null) => {
     }
 };
 
+const fetchEntryByTime = async (time: string | null) => {
+    try {
+        if (!time) {
+            return { success: false, message: 'No moment ID provided.', data: [] };
+        }
+        const snap = await getDoc(doc(firestore(), 'DayDiary', time))
+        // Reference the specific document using its ID
+        // const diaryRef = doc(firestore, 'DayDiary', momentId);
+        // const snapshot = await getDoc(diaryRef);
+        if(!snap.exists){
+            console.warn("No entry found for this ID in the 'DayDiary' collection.");
+            return { data: [], success: true, message: "No entry available for this ID." };
+        }
+       
+        // // If the document exists, return its data
+        const entryData = {
+            id: snap.id,
+            ...snap.data()
+        } as DiaryEntry;
+        return { data: [entryData], success: true };
+    } catch (err) {
+        console.error("Error fetching diary entry: ", err);
+        return { success: false, message: 'Error occurred while fetching diary entry.', data: [] };
+    }
+};
 
 
 export {testImage, handleAddDay ,fetchEntries, fetchEntryById}

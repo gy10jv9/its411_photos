@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { StyledView, StyledText, StyledPressable } from '../components/StyledComponents'
 import GetStarted from './getStarted'
 import Burger from './burger/burger'
+import MomentsNavigator from './highlights/momentNav'
 
 const Home = () => {
 	const router = useRouter()

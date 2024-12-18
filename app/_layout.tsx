@@ -18,7 +18,7 @@ export default function App() {
 				<Stack.Screen name='highlights/addDay' options={{ headerTitle: 'Add Moment', headerTitleAlign: 'center' }} />
 				<Stack.Screen name='highlights/diaryEntries' options={{ headerShown: false }} />
 				<Stack.Screen name='highlights/viewMoment' options={{ headerShown: false }} />
-
+				<Stack.Screen name='highlights/momentNav' options={{ headerShown: false }} />
 				{/* test */}
 				<Stack.Screen name='tests/camera' options={{ headerShown: false }} />
 				
