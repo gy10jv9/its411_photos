@@ -49,8 +49,6 @@ const AddDay: React.FC = () => {
                 if (address.length > 0) {
                     const { formattedAddress } = address[0];
                     const fullAddress = `${formattedAddress}`;
-                    console.log(fullAddress);
-    
                     setFormData({
                         ...formData,
                         address: fullAddress,
@@ -137,17 +135,6 @@ const AddDay: React.FC = () => {
                 <StyledText>Uploading...</StyledText>
             ) : (
                 <>
-                
-            {/* <TouchableOpacity onPress={openBurger}>
-                <StyledText className="text-lg font-semibold mb-2"> Open Burger </StyledText>
-            </TouchableOpacity>
-
-            {burger && (
-                <StyledView className="absolute shadow-md rounded-md z-20">
-                    <Burger closeBurger={closeBurger} />
-                </StyledView>
-            )} */}
-
             {/* profile sang user prehas sa instagram ah */}
             <StyledView className="flex-row items-center mb-4">
                 <Image source={require('../../assets/images/defaults/profile.jpg')} style={styles.profile} />

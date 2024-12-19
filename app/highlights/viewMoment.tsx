@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, ActivityIndicator, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import { fetchEntryById } from '@/functions/moments/moments';
+import { deleteMoment, fetchEntryById } from '@/functions/moments/moments';
 import { DiaryEntry } from '@/Interface/interface';
 import { StyledPressable, StyledText, StyledView } from '@/components/StyledComponents';
 import { useRouter } from 'expo-router';
@@ -35,6 +35,15 @@ const ViewMoment: React.FC = () => {
             <StyledText className="text-gray-500 text-l bg-red-400  py-5 px-1">{item.description}</StyledText>
             <StyledText className="text-gray-600 text-sm bg-red-200 py-5 px-1">{item.address}??</StyledText>
             <StyledText className="text-gray-400 text-sm bg-red-600 py-5 px-1">{item.date}</StyledText>
+            <TouchableOpacity onPress={()=>router.push('/highlights/editMoment')}>
+            <StyledText className="text-white text-sm bg-blue-600 py-5 px-1">Edit</StyledText>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={()=>{deleteMoment(item.id, item.photo)
+                router.push('/home')}
+            }>
+            <StyledText className="text-white text-sm bg-blue-600 py-5 px-1">Delete</StyledText>
+            </TouchableOpacity>
+            
         </StyledView>
     );
 

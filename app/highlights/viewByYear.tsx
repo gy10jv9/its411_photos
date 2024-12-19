@@ -5,8 +5,17 @@ import { DiaryEntry } from '@/Interface/interface';
 import { useUser } from '@/userContext/userContext';
 import { StyledSafeAreaView, StyledText, StyledView } from '@/components/StyledComponents';
 import { parse, isValid } from 'date-fns';
-
+import ViewbyMonth from './viewByMonth';
+import { useRouter } from 'expo-router';
 const ViewbyYear: React.FC<{ grouped: any }> = ({ grouped }) => {
+    const router = useRouter();
+    const gotoMonthsintheYear = (year: string) => {
+        router.push({
+            pathname: '/highlights/viewByMonth',
+            params: { year },
+        });
+    };
+
     return (
         <StyledSafeAreaView className="flex-1 bg-red-400 p-4">
             <FlatList
@@ -14,12 +23,15 @@ const ViewbyYear: React.FC<{ grouped: any }> = ({ grouped }) => {
                 numColumns={2}
                 renderItem={({ item }) => (
                     <StyledView className="rounded-lg w-1/2 flex justify-around p-1">
-                            <>
-                                <StyledText>Year: {item.year}</StyledText> 
-                                {item.photos.length > 0 && (
-                                    <Image source={{ uri: item.photos[0] }} style={styles.image} resizeMode="cover" />
-                                )}
-                            </>
+                        <>
+                        <TouchableOpacity onPress={()=>gotoMonthsintheYear(item.year)}>
+                        <StyledText>{item.year}</StyledText>
+                            {item.photos.length > 0 && (
+                                <Image source={{ uri: item.photos[0] }} style={styles.image} resizeMode="cover" />
+                            )}
+                        </TouchableOpacity>
+                           
+                        </>
                     </StyledView>
                 )}
                 ListEmptyComponent={(
@@ -42,4 +54,3 @@ const styles = StyleSheet.create({
 });
 
 export default ViewbyYear;
-

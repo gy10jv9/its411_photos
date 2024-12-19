@@ -35,7 +35,7 @@ const MomentsNavigator: React.FC = () => {
     useEffect(() => {
         const loadEntries = async () => {
             setLoading(true);
-            const result = await fetchEntries('2ArEMvzZKVSAS8lwsJtfuhZm3a12');
+            const result = await fetchEntries(useruid);
             if (result.success) {
                 setEntries(result.data);
             } else {
@@ -45,7 +45,6 @@ const MomentsNavigator: React.FC = () => {
         };
         loadEntries();
     }, [useruid]);
-
     const parseDateString = (dateString: string): Date | null => {
         const parsedDate = parse(dateString, 'MMMM d, yyyy', new Date());
         return isValid(parsedDate) ? parsedDate : null;
@@ -132,72 +131,12 @@ const MomentsNavigator: React.FC = () => {
                   <StyledText>All</StyledText>
               </TouchableOpacity>
           </StyledView>
-          <StyledView className='mt-20 bg-yellow-200'>
               {groupingType === 'Year' && <ViewbyYear grouped={groupedEntries} />}
               {groupingType === 'Month' && <ViewbyMonth grouped={groupedEntries} />}
               {groupingType === 'Day' && <ViewbyDay grouped={groupedEntries} />}
               {groupingType === 'All' && <AllMoments grouped={groupedEntries} />}
-          </StyledView>
         </StyledSafeAreaView>
     );
 };
 
 export default MomentsNavigator;
-
-
-{/* <FlatList
-                ListHeaderComponent={(   
-                )}
-                data={groupedEntries}
-                keyExtractor={(entry) => {
-                    if (groupingType === 'Year') {
-                        return `${entry.year}`; 
-                    } else if (groupingType === 'Month') {
-                        return `${entry.year}-${entry.month}`; 
-                    } else if (groupingType === 'Day') {
-                        return `${entry.year}-${entry.month}-${entry.day}`; 
-                    } else { 
-                        return entry.dates[0];
-                    }
-                }}
-                numColumns={2}
-                renderItem={({ item }) => (
-                    <StyledView className="rounded-lg w-1/2 flex justify-around p-1">
-                        {groupingType === 'All' ? (
-                            <>
-                                <StyledText>{item.titles.join(', ')}</StyledText>
-                                <StyledText>{item.addresses.join(', ')}</StyledText>
-                                <StyledText>{item.descriptions.join(', ')}</StyledText>
-                                <StyledText>{item.dates.join(', ')}</StyledText>
-                            </>
-                        ) : groupingType === 'Day' ? (
-                            <>
-                                <StyledText>{item.dates[0]}</StyledText>
-                                <StyledText>{item.titles.join(', ')}</StyledText>
-                                {Array.isArray(item.photos) && item.photos.map((photo, index) => (
-                                    <Image key={index} source={{ uri: photo }} style={styles.image} resizeMode="cover" />
-                                ))}
-                            </>
-                        ) : groupingType === 'Month' ? (
-                            <>
-                                <StyledText>{item.month}</StyledText>
-                                {item.photos.length > 0 && (
-                                    <Image source={{ uri: item.photos[0] }} style={styles.image} resizeMode="cover" />
-                                )}
-                            </>
-                        ) : groupingType === 'Year' ? (
-                            <>
-                                <StyledText>Year: {item.year}</StyledText> 
-                                {item.photos.length > 0 && (
-                                    <Image source={{ uri: item.photos[0] }} style={styles.image} resizeMode="cover" />
-                                )}
-                            </>
-                        ) : null}
-                    </StyledView>
-                )}
-                ListEmptyComponent={(
-                    <StyledView className="flex-1 justify-center items-center">
-                        <StyledText className="text-center text-gray-500">No diary entries found.</StyledText>
-                    </StyledView>
-                )}
-            /> */}

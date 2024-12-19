@@ -19,6 +19,10 @@ export default function App() {
 				<Stack.Screen name='highlights/diaryEntries' options={{ headerShown: false }} />
 				<Stack.Screen name='highlights/viewMoment' options={{ headerShown: false }} />
 				<Stack.Screen name='highlights/momentNav' options={{ headerShown: false }} />
+				<Stack.Screen name='highlights/viewByDay' options={{ headerShown: false }} />
+				<Stack.Screen name='highlights/viewByMonth' options={{ headerShown: false }} />
+				<Stack.Screen name='highlights/viewByYear' options={{ headerShown: false }} />
+				<Stack.Screen name='highlights/allMoments' options={{ headerShown: false }} />
 				{/* test */}
 				<Stack.Screen name='tests/camera' options={{ headerShown: false }} />
 				

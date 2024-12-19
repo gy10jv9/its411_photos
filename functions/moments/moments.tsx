@@ -1,8 +1,7 @@
-import { addDoc, collection, doc, getDoc, getDocs, query, where } from '@react-native-firebase/firestore';
-import storage from '@react-native-firebase/storage'; 
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, updateDoc, where } from '@react-native-firebase/firestore';
+import storage, { deleteObject, ref } from '@react-native-firebase/storage'; 
 import firestore from '@react-native-firebase/firestore';
 import { DiaryEntry } from '@/Interface/interface';
-const moment = require('moment')
 const testImage = async (image: string | null) => {
     if (!image) {
         console.error('No image selected');
@@ -36,7 +35,6 @@ const handleAddDay = async (formData: any, image: string | null) => {
             // createdAt: moment().format('YYYY-MM-DD HH:mm:ss')
         };       
         await addDoc(diaryRef, diaryEntry); 
-        console.log("Diary entry added successfully:", diaryEntry);
         return {success: true, message: "Diary entry added successfully"}
     } catch (error) {
         console.error("Error registering user: ", error);
@@ -58,7 +56,6 @@ const fetchEntries = async (userUID: string | null) => {
             id: doc.id,
             ...doc.data()
         })) as DiaryEntry[]; 
-
         return { data: entriesData, success: true };
     } catch (err) {
         console.error("Error fetching diary entries: ", err);
@@ -72,15 +69,10 @@ const fetchEntryById = async (momentId: string | null) => {
             return { success: false, message: 'No moment ID provided.', data: [] };
         }
         const snap = await getDoc(doc(firestore(), 'DayDiary', momentId))
-        // Reference the specific document using its ID
-        // const diaryRef = doc(firestore, 'DayDiary', momentId);
-        // const snapshot = await getDoc(diaryRef);
         if(!snap.exists){
             console.warn("No entry found for this ID in the 'DayDiary' collection.");
             return { data: [], success: true, message: "No entry available for this ID." };
         }
-       
-        // // If the document exists, return its data
         const entryData = {
             id: snap.id,
             ...snap.data()
@@ -92,31 +84,51 @@ const fetchEntryById = async (momentId: string | null) => {
     }
 };
 
-const fetchEntryByTime = async (time: string | null) => {
+const editMoment = async (formData: any, image : string | null) =>{
+    if (!image) {
+        try {
+            await updateDoc(doc(firestore(), "DayDiary", formData.id), formData);
+            return {success: true, message: "Diary entry updated successfully"}
+        } catch (error) {
+            console.error("Error registering user: ", error);
+        return;
+        }
+        }
     try {
-        if (!time) {
-            return { success: false, message: 'No moment ID provided.', data: [] };
+        const response = await fetch(image);
+        const blob = await response.blob();
+        const fileRef = storage().ref(`uploads/images/${Date.now()}.jpg`);
+        await fileRef.put(blob);
+        const imageUrl = await fileRef.getDownloadURL();
+        const newData = {
+            ...formData,
+            photo: imageUrl
         }
-        const snap = await getDoc(doc(firestore(), 'DayDiary', time))
-        // Reference the specific document using its ID
-        // const diaryRef = doc(firestore, 'DayDiary', momentId);
-        // const snapshot = await getDoc(diaryRef);
-        if(!snap.exists){
-            console.warn("No entry found for this ID in the 'DayDiary' collection.");
-            return { data: [], success: true, message: "No entry available for this ID." };
+        await updateDoc(doc(firestore(), "DayDiary", formData.id), newData);
+        return {success: true, message: "Diary entry updated successfully"}
+    } catch (error) {
+        console.error("Error registering user: ", error);
+    return { success: false, message: 'Error occurred during registration.' }; 
+    }
+}
+
+const deleteMoment = async (id: string, photoURL: any) => {
+    try {
+        const booksCollection = collection(firestore(), "DayDiary");
+        const docRef = doc(booksCollection, id);
+        await deleteDoc(docRef);
+        if(photoURL){
+            const getPathFromURL = (url: string): string => {
+                const parts = url.split("/o/");
+                return decodeURIComponent(parts[1].split("?")[0]);
+            };
+            const photoPath = getPathFromURL(photoURL);
+            const photoRef = ref(storage(), photoPath);
+            await deleteObject(photoRef);
         }
-       
-        // // If the document exists, return its data
-        const entryData = {
-            id: snap.id,
-            ...snap.data()
-        } as DiaryEntry;
-        return { data: [entryData], success: true };
-    } catch (err) {
-        console.error("Error fetching diary entry: ", err);
-        return { success: false, message: 'Error occurred while fetching diary entry.', data: [] };
+        
+    } catch (error) {
+        console.error("Error deleting moment:", error);
     }
 };
-
-
-export {testImage, handleAddDay ,fetchEntries, fetchEntryById}
+export {testImage, handleAddDay ,fetchEntries, fetchEntryById, editMoment, deleteMoment}
