@@ -51,7 +51,6 @@ const Login = async (formData: any) => {
   try {
     const res = await auth().signInWithEmailAndPassword(email as string, password as string);
     const userUID = res.user?.uid;
-    console.log(userUID, "idddddddddddd")
     if (!userUID) {
       return { success: false, message: "Wala uid." };
     }
@@ -64,14 +63,12 @@ const Login = async (formData: any) => {
     for (const docSnapshot of querySnapshot.docs) {
       const userDoc = docSnapshot.data();
       data.username = userDoc.firstName
-      console.log(userDoc)
       if (userDoc.firstLogin) {
         console.log(`Welcome, ${userDoc.firstName || "User"}!`);
         const userDocRef = doc(firestore(), 'UsersData', docSnapshot.id);
         await updateDoc(userDocRef, { firstLogin: false });
       }
     }
-    console.log("last");
     return { success: true, data };
   } catch (error: any) {
     console.error("Error during login:", error);
