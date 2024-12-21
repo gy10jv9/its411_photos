@@ -3,7 +3,7 @@ import { FlatList, ActivityIndicator, TouchableOpacity, Image, StyleSheet } from
 import { fetchEntries } from '@/functions/moments/moments';
 import { DiaryEntry } from '@/Interface/interface';
 import { useUser } from '@/userContext/userContext';
-import { StyledSafeAreaView, StyledText, StyledView } from '@/components/StyledComponents';
+import { StyledSafeAreaView, StyledText, StyledView, StyledImage } from '@/components/StyledComponents';
 import { parse, isValid } from 'date-fns';
 import ViewbyYear from './viewByYear';
 import ViewbyMonth from './viewByMonth';
@@ -45,6 +45,7 @@ const MomentsNavigator: React.FC = () => {
         };
         loadEntries();
     }, [useruid]);
+
     const parseDateString = (dateString: string): Date | null => {
         const parsedDate = parse(dateString, 'MMMM d, yyyy', new Date());
         return isValid(parsedDate) ? parsedDate : null;
@@ -111,30 +112,47 @@ const MomentsNavigator: React.FC = () => {
         });
         return Object.values(groupedData);
     };
+
     const groupedEntries = groupByDate(entries);
+
     if (loading) {
         return <ActivityIndicator size="large" color="#0000ff" />;
     }
+
+    const numColumns = groupingType === 'Year' || groupingType === 'All' ? 5 : groupingType === 'Month' ? 3 : 1;
+
     return (
         <StyledSafeAreaView className="flex-1 bg-white p-4">
-          <StyledView className="bg-orange-200">
-              <TouchableOpacity onPress={() => setGroupingType('Year')}>
-                  <StyledText>Year</StyledText>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => setGroupingType('Month')}>
-                  <StyledText>Month</StyledText>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => setGroupingType('Day')}>
-                  <StyledText>Day</StyledText>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => setGroupingType('All')}>
-                  <StyledText>All</StyledText>
-              </TouchableOpacity>
-          </StyledView>
-              {groupingType === 'Year' && <ViewbyYear grouped={groupedEntries} />}
-              {groupingType === 'Month' && <ViewbyMonth grouped={groupedEntries} />}
-              {groupingType === 'Day' && <ViewbyDay grouped={groupedEntries} />}
-              {groupingType === 'All' && <AllMoments grouped={groupedEntries} />}
+            <StyledView className="flex-row justify-around bg-gray-100 p-2">
+            <TouchableOpacity onPress={() => setGroupingType('Year')}>
+                <StyledText className="text-lg font-bold">Year</StyledText>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setGroupingType('Month')}>
+                <StyledText className="text-lg font-bold">Month</StyledText>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setGroupingType('Day')}>
+                <StyledText className="text-lg font-bold">Day</StyledText>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setGroupingType('All')}>
+                <StyledText className="text-lg font-bold">All</StyledText>
+            </TouchableOpacity>
+            </StyledView>
+            <FlatList
+                data={groupedEntries}
+                key={groupingType} // Change key to force re-render
+                keyExtractor={(item, index) => index.toString()}
+                numColumns={numColumns}
+                renderItem={({ item }) => (
+                    <StyledView className={`p-2 border-b border-gray-200 ${numColumns === 1 ? 'w-full' : numColumns === 3 ? 'w-1/3' : 'w-1/5'}`}>
+                    <StyledText className="text-sm text-gray-500">{item.dates[0]}</StyledText>
+                    <StyledText className="text-lg font-bold">{item.titles[0]}</StyledText>
+                    <StyledText className="text-sm">{item.descriptions[0]}</StyledText>
+                    {item.photos.length > 0 && (
+                        <StyledImage source={{ uri: item.photos[0] }} className="w-full h-32 mt-2" />
+                    )}
+                    </StyledView>
+                )}
+            />
         </StyledSafeAreaView>
     );
 };
