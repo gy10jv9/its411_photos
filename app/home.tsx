@@ -1,4 +1,4 @@
-import { StyledScrollView, StyledText, StyledView, StyledPressable, StyledSafeAreaView } from "@/components/StyledComponents";
+import { StyledScrollView, StyledText, StyledView, StyledPressable, StyledSafeAreaView, StyledTouchableOpacity, StyledImage } from "@/components/StyledComponents";
 import { ActivityIndicator, Alert, StyleSheet, TouchableOpacity } from 'react-native';
 import { useEffect, useState } from "react";
 import { useRouter } from "expo-router";
@@ -54,43 +54,37 @@ const HomePage = () => {
       };
            
     return (
-        <StyledView className="flex-1 w-screen h-full p-1">
+        <StyledView className="flex-1 w-screen h-full p-1 bg-white">
             <FlatList
                 ListHeaderComponent={(
-                    <StyledView className="pt-5 bg-orange-200">
+                    <StyledView className="pt-5 bg-white border-b border-gray-200">
                         {/* Top Section */}
-                        <StyledView className="h-20 w-full flex flex-wrap p-2 ">
+                        <StyledView className="h-20 w-full flex flex-wrap p-2 flex-row items-center justify-between">
                             {/* Left */}
-                            <StyledView className="w-2/3 h-full flex justify-center">
-                                <StyledText className="text-2xl mb-1">
+                            <StyledView className="flex-1">
+                                <StyledText className="text-2xl font-bold">
                                     Hello, {username}
                                 </StyledText>
-                                <StyledText className="text-l">
+                                <StyledText className="text-l text-gray-500">
                                     Let’s put your moment in Frames
                                 </StyledText>
                             </StyledView>
                             {/* Right */}
-                            <StyledView className="w-1/3 h-full flex flex-row justify-center items-center">
-                                <TouchableOpacity onPress={openBurger} style={{ marginLeft: 'auto' }}>
-                                    <Image source={require('../assets/images/lifelogo.png')} style={styles.logo} />
-                                </TouchableOpacity>
-                            </StyledView>
+                            <StyledTouchableOpacity onPress={openBurger} className="ml-auto">
+                                <StyledImage source={require('../assets/images/lifelogo.png')} className="w-12 h-12" />
+                            </StyledTouchableOpacity>
                         </StyledView>
 
                         {/* Middle Section */}
-                        <StyledView className="h-12 w-full flex flex-wrap p-2 bg-green-200">
+                        <StyledView className="h-12 w-full flex flex-wrap p-2 bg-white flex-row items-center justify-between">
                             {/* Left */}
-                            <StyledView className="w-2/3 h-full flex justify-center">
-                                <StyledText className="text-l">
-                                    Your Latest Moments
-                                </StyledText>
-                            </StyledView>
+                            <StyledText className="text-l font-semibold">
+                                Your Latest Moments
+                            </StyledText>
                             {/* Right */}
-                            <StyledView className="w-1/3 h-full flex flex-row justify-center items-center">
-                                <TouchableOpacity onPress={() => router.push('/highlights/momentNav')} style={{ marginLeft: 'auto' }}>
-                                    <StyledText className="text-sm">View all</StyledText>
-                                </TouchableOpacity>
-                            </StyledView>
+                            <StyledTouchableOpacity onPress={() => router.push('/highlights/momentNav')} className="ml-auto">
+                                <StyledText className="text-sm text-blue-500">View all</StyledText>
+                            </StyledTouchableOpacity>
                         </StyledView>
                     </StyledView>
                 )}
@@ -98,40 +92,37 @@ const HomePage = () => {
                 keyExtractor={(entry) => entry.id}
                 numColumns={2}
                 renderItem={({ item }) => (
-                    <StyledView className="rounded-lg w-1/2 flex justify-around p-1 ">
-                        <StyledView className="">
-                        {item.photo && (
-                            <TouchableOpacity onPress={()=>handleViewMoment(item.id)}>
-                                 <Image
-                                source={{ uri: item.photo }}
-                                style={styles.image}
-                                resizeMode="cover"
-                            />
-                            </TouchableOpacity>
-
-                        )}
-                        
-                        <StyledText className="text-left px-2 py-1">{item.title}</StyledText>
+                    <StyledView className="w-1/2 p-1">
+                        <StyledView className="bg-white rounded-lg overflow-hidden shadow-md">
+                            {item.photo && (
+                                <StyledTouchableOpacity onPress={()=>handleViewMoment(item.id)}>
+                                    <StyledImage
+                                        source={{ uri: item.photo }}
+                                        className="w-full h-40"
+                                        resizeMode="cover"
+                                    />
+                                </StyledTouchableOpacity>
+                            )}
+                            <StyledText className="text-left px-2 py-1 font-medium">{item.title}</StyledText>
                         </StyledView>
-                        
                     </StyledView>
                 )}
                 ListFooterComponent={(
                     <StyledView className="p-2">
                         {/* Buttons */}
-                        <StyledPressable style={styles.button}>
+                        <StyledPressable className="bg-gray-200 rounded-lg py-2 my-2 items-center">
                             <StyledText>day</StyledText>
                         </StyledPressable>
-                        <StyledPressable style={styles.button}>
+                        <StyledPressable className="bg-gray-200 rounded-lg py-2 my-2 items-center">
                             <StyledText>month</StyledText>
                         </StyledPressable>
-                        <StyledPressable style={styles.button}>
+                        <StyledPressable className="bg-gray-200 rounded-lg py-2 my-2 items-center">
                             <StyledText>year</StyledText>
                         </StyledPressable>
 
                         {/* Add Moment Button */}
                         <StyledPressable onPress={() => router.push('/highlights/addDay')} className="bg-blue-500 py-5 items-center rounded-xl">
-                            <StyledText className="text-white">Add A Moment</StyledText>
+                            <StyledText className="text-white font-semibold">Add A Moment</StyledText>
                         </StyledPressable>
                     </StyledView>
                 )}
