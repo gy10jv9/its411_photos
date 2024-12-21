@@ -51,7 +51,7 @@ const HomePage = () => {
     const handleViewMoment = (id: any) => {
         setMomentId(id)
         router.push('/highlights/viewMoment')
-      };
+    };
            
     return (
         <StyledView className="flex-1 w-screen h-full p-1 bg-white">
