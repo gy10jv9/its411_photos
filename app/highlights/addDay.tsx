@@ -113,7 +113,7 @@ const AddDay: React.FC = () => {
     };
 
     const gotoDiary = async () => {
-        router.push('/highlights/diaryEntries');
+        router.push('/highlights/viewByDay');
     };
 
     const [burger, setBurger] = useState(false);
@@ -204,7 +204,7 @@ const AddDay: React.FC = () => {
                             onPress={addday}
                             className="bg-green-600 text-white py-2 px-4 rounded-md items-center"
                         >
-                            <StyledText className="text-white">Upload Image</StyledText>
+                            <StyledText className="text-white">Upload Moment</StyledText>
                         </StyledPressable>
                     </>
                 )}
