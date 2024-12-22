@@ -161,19 +161,17 @@ const AddDay: React.FC = () => {
             />
 
             <StyledView className="space-y-4">
-                <StyledPressable
+                <StyledButton
+                    title="Pick an image from camera roll"
                     onPress={pickImage}
-                    className="bg-violet-600 border border-violet-600 py-2 px-4 rounded-md"
-                >
-                    <StyledText className="text-white">Pick an image from camera roll</StyledText>
-                </StyledPressable>
+                    className="bg-indigo-600 text-white py-2 px-4 rounded-md"
+                />
 
-                <StyledPressable
+                <StyledButton
+                    title="Capture an image with camera"
                     onPress={captureImage}
-                    className="bg-violet-600 border border-violet-600 py-2 px-4 rounded-md"
-                >
-                    <StyledText className="text-white">Capture an image with camera</StyledText>
-                </StyledPressable>
+                    className="bg-orange-600 text-white py-2 px-4 rounded-md"
+                />
 
                 {image && (
                     <>
@@ -181,21 +179,19 @@ const AddDay: React.FC = () => {
                             source={{ uri: image }}
                             style={{ height: 200, width: '100%', borderRadius: 10 }}
                         />
-                        <StyledPressable
+                        <StyledButton
+                            title="Upload Image"
                             onPress={addday}
-                            className="bg-violet-600 border border-violet-600 py-2 px-4 rounded-md"
-                        >
-                            <StyledText className="text-white">Upload Image</StyledText>
-                        </StyledPressable>
+                            className="bg-green-600 text-white py-2 px-4 rounded-md"
+                        />
                     </>
                 )}
 
-                <StyledPressable
+                <StyledButton
+                    title="View Diary"
                     onPress={gotoDiary}
-                    className="bg-violet-600 border border-violet-600 py-2 px-4 rounded-md"
-                >
-                    <StyledText className="text-white">View Diary</StyledText>
-                </StyledPressable>
+                    className="bg-blue-600 text-white py-2 px-4 rounded-md"
+                />
             </StyledView>
                 </>
             )}
