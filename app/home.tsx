@@ -108,15 +108,17 @@ const HomePage = () => {
                 ListFooterComponent={(
                     <StyledView className="p-2">
                         {/* Buttons */}
-                        <StyledPressable className="bg-gray-200 rounded-lg py-2 my-2 items-center">
-                            <StyledText>day</StyledText>
-                        </StyledPressable>
-                        <StyledPressable className="bg-gray-200 rounded-lg py-2 my-2 items-center">
-                            <StyledText>month</StyledText>
-                        </StyledPressable>
-                        <StyledPressable className="bg-gray-200 rounded-lg py-2 my-2 items-center">
-                            <StyledText>year</StyledText>
-                        </StyledPressable>
+                        <StyledView className="flex-row justify-between my-2">
+                            <StyledPressable className="flex-1 bg-gray-200 rounded-lg py-2 px-4 mx-1 items-center">
+                                <StyledText>day</StyledText>
+                            </StyledPressable>
+                            <StyledPressable className="flex-1 bg-gray-200 rounded-lg py-2 px-4 mx-1 items-center">
+                                <StyledText>month</StyledText>
+                            </StyledPressable>
+                            <StyledPressable className="flex-1 bg-gray-200 rounded-lg py-2 px-4 mx-1 items-center">
+                                <StyledText>year</StyledText>
+                            </StyledPressable>
+                        </StyledView>
 
                         {/* Add Moment Button */}
                         <StyledPressable onPress={() => router.push('/highlights/addDay')} className="bg-indigo-700 py-5 items-center rounded-xl">

@@ -4,7 +4,9 @@ import {
   StyledSafeAreaView, 
   StyledText, 
   StyledView, 
-  StyledTextInput 
+  StyledTextInput, 
+  StyledTouchableOpacity, 
+  StyledImage 
 } from '@/components/StyledComponents';
 import { fetchUserDetails } from '@/functions/users/users';
 import { User } from '@/Interface/interface';
@@ -30,18 +32,16 @@ const Profile: React.FC = () => {
   return (
     <StyledSafeAreaView className="bg-white px-6 w-full h-screen">
       {/* Header Section */}
-      <StyledView className="pt-5 bg-orange-200">
-        <StyledView className="h-20 w-full flex flex-wrap p-2">
+      <StyledView className="pt-5 bg-white border-b border-gray-200">
+        <StyledView className="h-20 w-full flex flex-wrap px-2 flex-row items-center justify-between">
           {/* Left Side - Title */}
-          <StyledView className="w-2/3 h-full flex justify-center">
-            <StyledText className="text-2xl mb-1">Profile</StyledText>
+          <StyledView className="flex-1">
+            <StyledText className="text-2xl font-bold">Profile</StyledText>
           </StyledView>
           {/* Right Side - Menu Icon */}
-          <StyledView className="w-1/3 h-full flex flex-row justify-center items-center">
-            <TouchableOpacity onPress={openBurger} style={{ marginLeft: 'auto' }}>
-              <Image source={require('../../assets/images/lifelogo.png')} style={styles.logo} />
-            </TouchableOpacity>
-          </StyledView>
+          <StyledTouchableOpacity onPress={openBurger} className="ml-auto">
+            <StyledImage source={require('../../assets/images/lifelogo.png')} className="w-12 h-12" />
+          </StyledTouchableOpacity>
         </StyledView>
       </StyledView>
 
@@ -49,9 +49,9 @@ const Profile: React.FC = () => {
       <FlatList
         data={userDetails}
         renderItem={({ item }) => (
-          <StyledView className="rounded-lg bg-orange-100 p-4 mb-4">
+          <StyledView className="rounded-lg bg-gray-100 p-4 mb-4">
             <StyledView className="flex flex-row items-center">
-              {/* <Image source={require('../../assets/images/profile-placeholder.png')} style={styles.profile} /> */}
+              {/* <StyledImage source={require('../../assets/images/profile-placeholder.png')} className="w-12 h-12 rounded-full" /> */}
               <StyledText className="ml-4 text-lg font-semibold">
                 {item.firstName} {item.lastName}
               </StyledText>
@@ -82,11 +82,6 @@ const Profile: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  profile: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-  },
   logo: {
     width: 50,
     height: 50,
