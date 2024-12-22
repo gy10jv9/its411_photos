@@ -127,6 +127,42 @@ const AddDay: React.FC = () => {
 
     return (
         <StyledSafeAreaView className="bg-white px-6">
+        <StyledView className="pt-5 bg-orange-200">
+                {/* Top Section */}
+                <StyledView className="h-20 w-full flex flex-wrap p-2 ">
+                    {/* Left */}
+                    <StyledView className="w-2/3 h-full flex justify-center">
+                        <StyledText className="text-2xl mb-1">
+                            {/* Hello, {username} */}Hello
+                        </StyledText>
+                        <StyledText className="text-l">
+                            Let’s put your moment in Frames
+                        </StyledText>
+                    </StyledView>
+                    {/* Right */}
+                    <StyledView className="w-1/3 h-full flex flex-row justify-center items-center">
+                        <TouchableOpacity onPress={openBurger} style={{ marginLeft: 'auto' }}>
+                            <Image source={require('../../assets/images/lifelogo.png')} style={styles.logo} />
+                        </TouchableOpacity>
+                    </StyledView>
+                </StyledView>
+
+                {/* Middle Section */}
+                <StyledView className="h-12 w-full flex flex-wrap p-2 bg-green-200">
+                    {/* Left */}
+                    <StyledView className="w-2/3 h-full flex justify-center">
+                        <StyledText className="text-l">
+                            Your Latest Moments
+                        </StyledText>
+                    </StyledView>
+                    {/* Right */}
+                    <StyledView className="w-1/3 h-full flex flex-row justify-center items-center">
+                        <TouchableOpacity onPress={() => router.push('/highlights/viewByDay')} style={{ marginLeft: 'auto' }}>
+                            <StyledText className="text-sm">View all</StyledText>
+                        </TouchableOpacity>
+                    </StyledView>
+                </StyledView>
+            </StyledView>
              {loading ? (
             <StyledText>Loading location...</StyledText>
         ) : (
@@ -136,6 +172,7 @@ const AddDay: React.FC = () => {
             ) : (
                 <>
             {/* profile sang user prehas sa instagram ah */}
+             
             <StyledView className="flex-row items-center mb-4">
                 <Image source={require('../../assets/images/defaults/profile.jpg')} style={styles.profile} />
                 <StyledView className="ml-4">
@@ -195,7 +232,11 @@ const AddDay: React.FC = () => {
             </StyledView>
                 </>
             )}
-           
+           {burger && (
+                <StyledView className="absolute top-0 right-0 shadow-md rounded-md z-20">
+                    <Burger closeBurger={closeBurger} />
+                </StyledView>
+            )}
             </>
         )}
             
@@ -208,6 +249,11 @@ const styles = StyleSheet.create({
         width: 50,
         height: 50,
         borderRadius: 50,
+    },
+    logo: {
+        width: 50,
+        height: 50,
+        backgroundColor: '#000',
     },
 });
 

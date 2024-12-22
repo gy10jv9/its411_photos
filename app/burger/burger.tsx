@@ -40,11 +40,14 @@ const Burger: React.FC<BurgerProps> = ({ closeBurger }) => {
         <TouchableOpacity style={styles.button} onPress={() => router.push('/home')}>
           <Text style={styles.buttonText}>Profile</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => router.push('/highlightsmomentNav')}>
-          <Text style={styles.buttonText}>Entries</Text>
-        </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={() => router.push('/highlights/addDay')}>
           <Text style={styles.buttonText}>Add Day</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => router.push('/highlights/viewByYear')}>
+          <Text style={styles.buttonText}>Yearly</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => router.push('/highlights/viewByMonth')}>
+          <Text style={styles.buttonText}>Monthly</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, styles.logoutButton]} onPress={() => router.push('/')}>
           <StyledText className='text-white pr-2 text-xl text-right'>Logout</StyledText>

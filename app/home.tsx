@@ -87,7 +87,7 @@ const HomePage = () => {
                             </StyledView>
                             {/* Right */}
                             <StyledView className="w-1/3 h-full flex flex-row justify-center items-center">
-                                <TouchableOpacity onPress={() => router.push('/highlights/momentNav')} style={{ marginLeft: 'auto' }}>
+                                <TouchableOpacity onPress={() => router.push('/highlights/viewByDay')} style={{ marginLeft: 'auto' }}>
                                     <StyledText className="text-sm">View all</StyledText>
                                 </TouchableOpacity>
                             </StyledView>
