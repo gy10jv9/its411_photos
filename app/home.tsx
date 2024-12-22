@@ -51,7 +51,7 @@ const HomePage = () => {
     const handleViewMoment = (id: any) => {
         setMomentId(id)
         router.push('/highlights/viewMoment')
-      };
+    };
            
     return (
         <StyledView className="flex-1 w-screen h-full p-1 bg-white">
@@ -109,13 +109,13 @@ const HomePage = () => {
                     <StyledView className="p-2">
                         {/* Buttons */}
                         <StyledView className="flex-row justify-between my-2">
-                            <StyledPressable className="flex-1 bg-gray-200 rounded-lg py-2 px-4 mx-1 items-center">
+                            <StyledPressable onPress={() => router.push('/highlights/viewByDay')} className="flex-1 bg-gray-200 rounded-lg py-2 px-4 mx-1 items-center">
                                 <StyledText>day</StyledText>
                             </StyledPressable>
-                            <StyledPressable className="flex-1 bg-gray-200 rounded-lg py-2 px-4 mx-1 items-center">
+                            <StyledPressable onPress={() => router.push('/highlights/viewByMonth')} className="flex-1 bg-gray-200 rounded-lg py-2 px-4 mx-1 items-center">
                                 <StyledText>month</StyledText>
                             </StyledPressable>
-                            <StyledPressable className="flex-1 bg-gray-200 rounded-lg py-2 px-4 mx-1 items-center">
+                            <StyledPressable onPress={() => router.push('/highlights/viewByYear')} className="flex-1 bg-gray-200 rounded-lg py-2 px-4 mx-1 items-center">
                                 <StyledText>year</StyledText>
                             </StyledPressable>
                         </StyledView>

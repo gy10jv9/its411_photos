@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import { StyledSafeAreaView, StyledText, StyledView } from '@/components/StyledComponents';
+import { StyledSafeAreaView, StyledText, StyledView, StyledTouchableOpacity, StyledImage } from '@/components/StyledComponents';
 import { useRoute } from '@react-navigation/native';
 import { useUser } from '@/userContext/userContext';
 import { fetchEntries } from '@/functions/moments/moments';
@@ -62,43 +62,25 @@ const ViewbyMonth: React.FC<{ grouped: any }> = ({ grouped }) => {
     };
 
     return (
-       <StyledSafeAreaView className=" bg-red-400 p-4 w-full h-screen overflow-hidden flex gap-y-10">
+       <StyledSafeAreaView className="bg-white px-4 w-full h-screen overflow-hidden flex gap-y-10">
             <FlatList
-             ListHeaderComponent={(
-                    <StyledView className="pt-5 bg-orange-200">
+                ListHeaderComponent={(
+                    <StyledView className="pt-5 bg-white border-b border-gray-200">
                         {/* Top Section */}
-                        <StyledView className="h-20 w-full flex flex-wrap p-2 ">
+                        <StyledView className="h-20 w-full flex flex-wrap px-2 flex-row items-center justify-between">
                             {/* Left */}
-                            <StyledView className="w-2/3 h-full flex justify-center">
-                                <StyledText className="text-2xl mb-1">
-                                    {/* Hello, {username} */}Hello
+                            <StyledView className="flex-1">
+                                <StyledText className="text-2xl font-bold">
+                                    Hello
                                 </StyledText>
-                                <StyledText className="text-l">
+                                <StyledText className="text-l text-gray-500">
                                     Let’s put your moment in Frames
                                 </StyledText>
                             </StyledView>
                             {/* Right */}
-                            <StyledView className="w-1/3 h-full flex flex-row justify-center items-center">
-                                <TouchableOpacity onPress={openBurger} style={{ marginLeft: 'auto' }}>
-                                    <Image source={require('../../assets/images/lifelogo.png')} style={styles.logo} />
-                                </TouchableOpacity>
-                            </StyledView>
-                        </StyledView>
-
-                        {/* Middle Section */}
-                        <StyledView className="h-12 w-full flex flex-wrap p-2 bg-green-200">
-                            {/* Left */}
-                            <StyledView className="w-2/3 h-full flex justify-center">
-                                <StyledText className="text-l">
-                                    Your Latest Moments
-                                </StyledText>
-                            </StyledView>
-                            {/* Right */}
-                            <StyledView className="w-1/3 h-full flex flex-row justify-center items-center">
-                                <TouchableOpacity onPress={() => router.push('/highlights/viewByDay')} style={{ marginLeft: 'auto' }}>
-                                    <StyledText className="text-sm">View all</StyledText>
-                                </TouchableOpacity>
-                            </StyledView>
+                            <StyledTouchableOpacity onPress={openBurger} className="ml-auto">
+                                <StyledImage source={require('../../assets/images/lifelogo.png')} className="w-12 h-12" />
+                            </StyledTouchableOpacity>
                         </StyledView>
                     </StyledView>
                 )}
@@ -111,31 +93,31 @@ const ViewbyMonth: React.FC<{ grouped: any }> = ({ grouped }) => {
                     const [year, month] = yearMonth.split('-');
                     const firstEntry = monthEntries[0];
                     return (
-                        <StyledView className="rounded-lg w-full flex h-screen justify-around bg-green-300">
-                            <TouchableOpacity onPress={() => router.push({
+                        <StyledView className="rounded-lg w-full flex flex-col p-4 mb-4 bg-gray-100">
+                            <StyledTouchableOpacity onPress={() => router.push({
                                 pathname: '/highlights/viewByDay',
                                 params: { month: month, year: year },
                             })}>
-                            <StyledView className="h-80">
-                            <StyledText>{`${month} ${year}`}</StyledText>
-                            {firstEntry?.photo && (
-                                    <Image
+                                <StyledText className="text-lg font-bold text-center mb-2">
+                                    {`${month} ${year}`}
+                                </StyledText>
+                                {firstEntry?.photo && (
+                                    <StyledImage
                                         source={{ uri: firstEntry.photo }}
-                                        style={styles.image}
+                                        className="w-full h-80 rounded-lg"
                                         resizeMode="cover"
                                     />
                                 )}
-                            </StyledView>
-                            </TouchableOpacity>
+                            </StyledTouchableOpacity>
                         </StyledView>
                     );
                 }}
-                 ListEmptyComponent={
-                        <StyledView className="flex-1 justify-center items-center">
-                             <StyledText className="text-center text-gray-500">Frame your Moments.</StyledText>
-                        </StyledView>
-                        }
-                        showsVerticalScrollIndicator={false} 
+                ListEmptyComponent={(
+                    <StyledView className="flex-1 justify-center items-center">
+                        <StyledText className="text-center text-gray-500">Frame your Moments.</StyledText>
+                    </StyledView>
+                )}
+                showsVerticalScrollIndicator={false} 
             />
             {burger && (
                 <StyledView className="absolute top-0 right-0 shadow-md rounded-md z-20">
@@ -149,16 +131,15 @@ const ViewbyMonth: React.FC<{ grouped: any }> = ({ grouped }) => {
 // Define styles for images
 const styles = StyleSheet.create({
     image: {
-      width: '100%',
-      height: '100%',
-      objectFit: 'cover'
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover'
     },
     logo: {
         width: 50,
         height: 50,
         backgroundColor: '#000',
     },
-  });
-  
+});
 
 export default ViewbyMonth;
