@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FlatList, ActivityIndicator, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { deleteMoment, fetchEntryById } from '@/functions/moments/moments';
 import { DiaryEntry } from '@/Interface/interface';
-import { StyledPressable, StyledText, StyledView } from '@/components/StyledComponents';
+import { StyledPressable, StyledText, StyledView, StyledTouchableOpacity, StyledImage } from '@/components/StyledComponents';
 import { useRouter } from 'expo-router';
 import { useMoment } from '@/context/MomentContext';
 
@@ -14,6 +14,7 @@ const ViewMoment: React.FC = () => {
     const [burger, setBurger] = useState(false);
     const openBurger = () => setBurger(true);
     const closeBurger = () => setBurger(false);
+
     useEffect(() => {
         const loadEntries = async () => {
             setLoading(true);
@@ -29,21 +30,18 @@ const ViewMoment: React.FC = () => {
     }, []);
 
     const renderEntry = ({ item }: { item: DiaryEntry }) => (
-        <StyledView className="w-screen bg-green-200 h-full flex">
-            <StyledText className="text-2xl font-bold mt-2 bg-red-200 py-5 px-1">{item.title}</StyledText>
-            <Image source={{ uri: item.photo }} style={styles.image} />
-            <StyledText className="text-gray-500 text-l bg-red-400  py-5 px-1">{item.description}</StyledText>
-            <StyledText className="text-gray-600 text-sm bg-red-200 py-5 px-1">{item.address}??</StyledText>
-            <StyledText className="text-gray-400 text-sm bg-red-600 py-5 px-1">{item.date}</StyledText>
-            <TouchableOpacity onPress={()=>router.push('/highlights/editMoment')}>
-            <StyledText className="text-white text-sm bg-blue-600 py-5 px-1">Edit</StyledText>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={()=>{deleteMoment(item.id, item.photo)
-                router.push('/home')}
-            }>
-            <StyledText className="text-white text-sm bg-blue-600 py-5 px-1">Delete</StyledText>
-            </TouchableOpacity>
-            
+        <StyledView className="w-full bg-white flex flex-col p-4">
+            <StyledText className="text-2xl font-bold mt-2">{item.title}</StyledText>
+            <StyledImage source={{ uri: item.photo }} className="w-full h-80 my-4" resizeMode="cover" />
+            <StyledText className="text-gray-500 text-l mb-2">{item.description}</StyledText>
+            <StyledText className="text-gray-600 text-sm mb-2">{item.address}</StyledText>
+            <StyledText className="text-gray-400 text-sm mb-4">{item.date}</StyledText>
+            <StyledTouchableOpacity onPress={() => router.push('/highlights/editMoment')} className="bg-blue-600 py-2 px-4 rounded-lg mb-2">
+                <StyledText className="text-white text-center">Edit</StyledText>
+            </StyledTouchableOpacity>
+            <StyledTouchableOpacity onPress={() => { deleteMoment(item.id, item.photo); router.push('/home'); }} className="bg-red-600 py-2 px-4 rounded-lg">
+                <StyledText className="text-white text-center">Delete</StyledText>
+            </StyledTouchableOpacity>
         </StyledView>
     );
 
@@ -58,28 +56,26 @@ const ViewMoment: React.FC = () => {
     return (
         <StyledView className="flex-1 bg-white p-1 h-full w-screen">
             <FlatList
-            ListHeaderComponent={(
-                                <StyledView className="pt-5 bg-orange-200">
-                                    {/* Top Section */}
-                                    <StyledView className="h-20 w-full flex flex-wrap p-2 ">
-                                        {/* Left */}
-                                        <StyledView className="w-2/3 h-full flex justify-center">
-                                            <StyledText className="text-2xl mb-1">
-                                                Your Moment
-                                            </StyledText>
-                                            <StyledText className="text-l">
-                                                Let’s put your moment in Frames
-                                            </StyledText>
-                                        </StyledView>
-                                        {/* Right */}
-                                        <StyledView className="w-1/3 h-full flex flex-row justify-center items-center">
-                                            <TouchableOpacity onPress={openBurger} style={{ marginLeft: 'auto' }}>
-                                                <Image source={require('../../assets/images/lifelogo.png')} style={styles.logo} />
-                                            </TouchableOpacity>
-                                        </StyledView>
-                                    </StyledView>
-                                </StyledView>
-                            )}
+                ListHeaderComponent={(
+                    <StyledView className="pt-5 bg-white border-b border-gray-200">
+                        {/* Top Section */}
+                        <StyledView className="h-20 w-full flex flex-wrap px-2 flex-row items-center justify-between">
+                            {/* Left */}
+                            <StyledView className="flex-1">
+                                <StyledText className="text-2xl font-bold">
+                                    Your Moment
+                                </StyledText>
+                                <StyledText className="text-l text-gray-500">
+                                    Let’s put your moment in Frames
+                                </StyledText>
+                            </StyledView>
+                            {/* Right */}
+                            <StyledTouchableOpacity onPress={openBurger} className="ml-auto">
+                                <StyledImage source={require('../../assets/images/lifelogo.png')} className="w-12 h-12" />
+                            </StyledTouchableOpacity>
+                        </StyledView>
+                    </StyledView>
+                )}
                 data={entries}
                 renderItem={renderEntry}
                 keyExtractor={(item) => item.id}
@@ -90,13 +86,9 @@ const ViewMoment: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-    image: {
-        width: '100%',
-        height: 200,
-    },
     list: {
         height: "100%",
-        backgroundColor: "orange",
+        backgroundColor: "white",
         margin: 0,
         padding: 0
     },
