@@ -72,10 +72,10 @@ const ViewbyYear: React.FC = () => {
   }
 
   return (
-    <StyledSafeAreaView className="flex-1 bg-white px-4 w-full overflow-hidden">
+    <StyledSafeAreaView className="flex-1 bg-white px-4 w-full overflow-hidden pb-5">
       <FlatList
         ListHeaderComponent={(
-          <StyledView className="pt-5 bg-white border-b border-gray-200">
+          <StyledView className=" bg-white border-b border-gray-200">
             {/* Top Section */}
             <StyledView className="h-20 w-full flex flex-wrap px-2 flex-row items-center justify-between">
               {/* Left */}

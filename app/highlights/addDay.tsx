@@ -126,8 +126,8 @@ const AddDay: React.FC = () => {
 
 
     return (
-        <StyledSafeAreaView className="bg-white px-6">
-            <StyledView className="pt-5 bg-white border-b border-gray-200">
+        <StyledSafeAreaView className="bg-white px-4">
+            <StyledView className=" bg-white border-b border-gray-200">
                 {/* Top Section */}
                 <StyledView className="h-20 w-full flex flex-wrap px-2 flex-row items-center justify-between">
                     {/* Left */}

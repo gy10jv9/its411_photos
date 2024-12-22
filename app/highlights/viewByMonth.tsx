@@ -62,10 +62,10 @@ const ViewbyMonth: React.FC<{ grouped: any }> = ({ grouped }) => {
     };
 
     return (
-       <StyledSafeAreaView className="bg-white px-4 w-full h-screen overflow-hidden flex gap-y-10">
+       <StyledSafeAreaView className="bg-white px-4 w-full h-screen overflow-hidden flex gap-y-10 pb-5">
             <FlatList
                 ListHeaderComponent={(
-                    <StyledView className="pt-5 bg-white border-b border-gray-200">
+                    <StyledView className=" bg-white border-b border-gray-200">
                         {/* Top Section */}
                         <StyledView className="h-20 w-full flex flex-wrap px-2 flex-row items-center justify-between">
                             {/* Left */}
