@@ -121,7 +121,7 @@ const HomePage = () => {
                         </StyledPressable>
 
                         {/* Add Moment Button */}
-                        <StyledPressable onPress={() => router.push('/highlights/addDay')} className="bg-blue-500 py-5 items-center rounded-xl">
+                        <StyledPressable onPress={() => router.push('/highlights/addDay')} className="bg-violet-500 py-5 items-center rounded-xl">
                             <StyledText className="text-white font-semibold">Add A Moment</StyledText>
                         </StyledPressable>
                     </StyledView>
