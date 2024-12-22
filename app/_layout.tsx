@@ -16,7 +16,7 @@ export default function App() {
 				<Stack.Screen name='userAuth/registration/part2' options={{ headerShown: false }} />
 
 				<Stack.Screen name='highlights/addDay' options={{ headerTitle: 'Add Moment', headerTitleAlign: 'center' }} />
-				<Stack.Screen name='highlights/diaryEntries' options={{ headerShown: false }} />
+				<Stack.Screen name='highlights/diaryEntries' options={{ headerTitle: 'Diary Entries', headerTitleAlign: 'center' }} />
 				<Stack.Screen name='highlights/viewMoment'options={{ headerTitle: 'Your Moment', headerTitleAlign: 'center' }} />
 				<Stack.Screen name='highlights/viewByDay' options={{ headerTitle: 'Latest Moment', headerTitleAlign: 'center' }} />
 				<Stack.Screen name='highlights/viewByMonth' options={{ headerShown: false }} />

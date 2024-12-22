@@ -1,5 +1,5 @@
 import { Text, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native';
-import { StyledPressable, StyledText, StyledSafeAreaView, StyledButton, StyledView, StyledTextInput } from '@/components/StyledComponents';
+import { StyledPressable, StyledText, StyledSafeAreaView, StyledView, StyledTextInput, StyledImage, StyledTouchableOpacity } from '@/components/StyledComponents';
 import { router, Href } from 'expo-router';
 import { useState, useEffect } from 'react';
 import * as ImagePicker from 'expo-image-picker';
@@ -127,40 +127,22 @@ const AddDay: React.FC = () => {
 
     return (
         <StyledSafeAreaView className="bg-white px-6">
-        <StyledView className="pt-5 bg-orange-200">
+            <StyledView className="pt-5 bg-white border-b border-gray-200">
                 {/* Top Section */}
-                <StyledView className="h-20 w-full flex flex-wrap p-2 ">
+                <StyledView className="h-20 w-full flex flex-wrap px-2 flex-row items-center justify-between">
                     {/* Left */}
-                    <StyledView className="w-2/3 h-full flex justify-center">
-                        <StyledText className="text-2xl mb-1">
-                            {/* Hello, {username} */}Hello
+                    <StyledView className="flex-1">
+                        <StyledText className="text-2xl font-bold">
+                            Hello
                         </StyledText>
-                        <StyledText className="text-l">
+                        <StyledText className="text-l text-gray-500">
                             Let’s put your moment in Frames
                         </StyledText>
                     </StyledView>
                     {/* Right */}
-                    <StyledView className="w-1/3 h-full flex flex-row justify-center items-center">
-                        <TouchableOpacity onPress={openBurger} style={{ marginLeft: 'auto' }}>
-                            <Image source={require('../../assets/images/lifelogo.png')} style={styles.logo} />
-                        </TouchableOpacity>
-                    </StyledView>
-                </StyledView>
-
-                {/* Middle Section */}
-                <StyledView className="h-12 w-full flex flex-wrap p-2 bg-green-200">
-                    {/* Left */}
-                    <StyledView className="w-2/3 h-full flex justify-center">
-                        <StyledText className="text-l">
-                            Your Latest Moments
-                        </StyledText>
-                    </StyledView>
-                    {/* Right */}
-                    <StyledView className="w-1/3 h-full flex flex-row justify-center items-center">
-                        <TouchableOpacity onPress={() => router.push('/highlights/viewByDay')} style={{ marginLeft: 'auto' }}>
-                            <StyledText className="text-sm">View all</StyledText>
-                        </TouchableOpacity>
-                    </StyledView>
+                    <StyledTouchableOpacity onPress={openBurger} className="ml-auto">
+                        <StyledImage source={require('../../assets/images/lifelogo.png')} className="w-12 h-12" />
+                    </StyledTouchableOpacity>
                 </StyledView>
             </StyledView>
              {loading ? (
@@ -174,7 +156,7 @@ const AddDay: React.FC = () => {
             {/* profile sang user prehas sa instagram ah */}
              
             <StyledView className="flex-row items-center mb-4">
-                <Image source={require('../../assets/images/defaults/profile.jpg')} style={styles.profile} />
+                <StyledImage source={require('../../assets/images/defaults/profile.jpg')} className="w-12 h-12 rounded-full" />
                 <StyledView className="ml-4">
                     <StyledText className="text-lg font-semibold">{username}</StyledText>
                     <StyledText className="text-sm text-gray-500"> userId: {useruid} </StyledText>
@@ -198,37 +180,41 @@ const AddDay: React.FC = () => {
             />
 
             <StyledView className="space-y-4">
-                <StyledButton
-                    title="Pick an image from camera roll"
+                <StyledPressable
                     onPress={pickImage}
-                    className="bg-indigo-600 text-white py-2 px-4 rounded-md"
-                />
+                    className="bg-indigo-700 text-white py-2 px-4 rounded-md items-center"
+                >
+                    <StyledText className="text-white">Pick an image from camera roll</StyledText>
+                </StyledPressable>
 
-                <StyledButton
-                    title="Capture an image with camera"
+                <StyledPressable
                     onPress={captureImage}
-                    className="bg-orange-600 text-white py-2 px-4 rounded-md"
-                />
+                    className="bg-indigo-700 text-white py-2 px-4 rounded-md items-center"
+                >
+                    <StyledText className="text-white">Capture an image with camera</StyledText>
+                </StyledPressable>
 
                 {image && (
                     <>
-                        <Image
+                        <StyledImage
                             source={{ uri: image }}
-                            style={{ height: 200, width: '100%', borderRadius: 10 }}
+                            className="h-52 w-full rounded-lg"
                         />
-                        <StyledButton
-                            title="Upload Image"
+                        <StyledPressable
                             onPress={addday}
-                            className="bg-green-600 text-white py-2 px-4 rounded-md"
-                        />
+                            className="bg-green-600 text-white py-2 px-4 rounded-md items-center"
+                        >
+                            <StyledText className="text-white">Upload Image</StyledText>
+                        </StyledPressable>
                     </>
                 )}
 
-                <StyledButton
-                    title="View Diary"
+                <StyledPressable
                     onPress={gotoDiary}
-                    className="bg-blue-600 text-white py-2 px-4 rounded-md"
-                />
+                    className="bg-indigo-700 text-white py-2 px-4 rounded-md items-center"
+                >
+                    <StyledText className="text-white">View Diary</StyledText>
+                </StyledPressable>
             </StyledView>
                 </>
             )}
