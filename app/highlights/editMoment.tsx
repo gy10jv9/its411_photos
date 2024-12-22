@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FlatList, ActivityIndicator, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { deleteMoment, editMoment, fetchEntryById } from '@/functions/moments/moments';
 import { DiaryEntry } from '@/Interface/interface';
-import { StyledPressable, StyledText, StyledTextInput, StyledView, StyledTouchableOpacity, StyledImage } from '@/components/StyledComponents';
+import { StyledPressable, StyledText, StyledTextInput, StyledView, StyledTouchableOpacity, StyledImage, StyledScrollView } from '@/components/StyledComponents';
 import { useRouter } from 'expo-router';
 import { useMoment } from '@/context/MomentContext';
 import * as ImagePicker from 'expo-image-picker';
@@ -129,7 +129,7 @@ const EditMoment: React.FC = () => {
     }
 
     return (
-        <StyledView className="flex-1 bg-white p-1 h-full w-screen">
+        <StyledScrollView className="flex-1 bg-white p-1 h-full w-screen">
             <FlatList
                 ListHeaderComponent={(
                     <StyledView className="pt-5 bg-white border-b border-gray-200">
@@ -162,7 +162,7 @@ const EditMoment: React.FC = () => {
             <StyledPressable onPress={() => deleteMoment(entries[0].id, entries[0].photo)} className="bg-red-600 py-3 mt-3 rounded-md items-center">
                 <StyledText className="text-white">Delete Moment</StyledText>
             </StyledPressable>
-        </StyledView>
+        </StyledScrollView>
     );
 };
 
