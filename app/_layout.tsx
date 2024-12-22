@@ -16,14 +16,15 @@ export default function App() {
 				<Stack.Screen name='userAuth/registration/part2' options={{ headerShown: false }} />
 
 				<Stack.Screen name='highlights/addDay' options={{ headerTitle: 'Add Moment', headerTitleAlign: 'center' }} />
-				<Stack.Screen name='highlights/diaryEntries' options={{ headerShown: false }} />
-				<Stack.Screen name='highlights/viewMoment' options={{ headerShown: false }} />
-				<Stack.Screen name='highlights/viewByDay' options={{ headerShown: false }} />
-				<Stack.Screen name='highlights/viewByMonth' options={{ headerShown: false }} />
-				<Stack.Screen name='highlights/viewByYear' options={{ headerShown: false }} />
+				<Stack.Screen name='highlights/diaryEntries' options={{ headerTitle: 'Diary Entries', headerTitleAlign: 'center' }} />
+				<Stack.Screen name='highlights/viewMoment'options={{ headerTitle: 'Your Moment', headerTitleAlign: 'center' }} />
+				<Stack.Screen name='highlights/viewByDay' options={{ headerTitle: 'Latest Moment', headerTitleAlign: 'center' }} />
+				<Stack.Screen name='highlights/viewByMonth' options={{ headerTitle: 'Monthly Moments', headerTitleAlign: 'center' }} />
+				<Stack.Screen name='highlights/viewByYear' options={{ headerTitle: 'Yearly Moments', headerTitleAlign: 'center' }} />
 				<Stack.Screen name='highlights/allMoments' options={{ headerShown: false }} />
+				<Stack.Screen name='highlights/editMoment' options={{ headerTitle: 'Edit Moment', headerTitleAlign: 'center' }} />
 
-				<Stack.Screen name='profile/profile' options={{ headerShown: false }} />
+				<Stack.Screen name='profile/profile' options={{ headerTitle: 'Profile', headerTitleAlign: 'center' }} />
 				{/* test */}
 				<Stack.Screen name='tests/camera' options={{ headerShown: false }} />
 				

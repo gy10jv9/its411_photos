@@ -3,7 +3,7 @@ import { FlatList, ActivityIndicator, TouchableOpacity, Image, StyleSheet } from
 import { fetchEntries } from '@/functions/moments/moments';
 import { DiaryEntry } from '@/Interface/interface';
 import { useUser } from '@/userContext/userContext';
-import { StyledSafeAreaView, StyledText, StyledView } from '@/components/StyledComponents';
+import { StyledSafeAreaView, StyledText, StyledView, StyledTouchableOpacity, StyledImage } from '@/components/StyledComponents';
 import { useRouter } from 'expo-router';
 import { parse, isValid } from 'date-fns';
 import Burger from '../burger/burger';
@@ -18,15 +18,17 @@ const ViewbyYear: React.FC = () => {
   const [entries, setEntries] = useState<DiaryEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const { useruid } = useUser();
-const [burger, setBurger] = useState(false);
-    const openBurger = () => setBurger(true);
-    const closeBurger = () => setBurger(false);
+  const [burger, setBurger] = useState(false);
+  const openBurger = () => setBurger(true);
+  const closeBurger = () => setBurger(false);
+
   const gotoMonthsintheYear = (year: number) => {
     router.push({
       pathname: '/highlights/viewByMonth',
       params: { year },
     });
   };
+
   useEffect(() => {
     const loadEntries = async () => {
       setLoading(true);
@@ -70,82 +72,64 @@ const [burger, setBurger] = useState(false);
   }
 
   return (
-    <StyledSafeAreaView className="flex-1 bg-red-400 p-4 w-full overflow-hidden">
-    <FlatList
-     ListHeaderComponent={(
-            <StyledView className="pt-5 bg-orange-200">
-                {/* Top Section */}
-                <StyledView className="h-20 w-full flex flex-wrap p-2 ">
-                    {/* Left */}
-                    <StyledView className="w-2/3 h-full flex justify-center">
-                        <StyledText className="text-2xl mb-1">
-                            {/* Hello, {username} */}Hello
-                        </StyledText>
-                        <StyledText className="text-l">
-                            Let’s put your moment in Frames
-                        </StyledText>
-                    </StyledView>
-                    {/* Right */}
-                    <StyledView className="w-1/3 h-full flex flex-row justify-center items-center">
-                        <TouchableOpacity onPress={openBurger} style={{ marginLeft: 'auto' }}>
-                            <Image source={require('../../assets/images/lifelogo.png')} style={styles.logo} />
-                        </TouchableOpacity>
-                    </StyledView>
-                </StyledView>
-
-                {/* Middle Section */}
-                <StyledView className="h-12 w-full flex flex-wrap p-2 bg-green-200">
-                    {/* Left */}
-                    <StyledView className="w-2/3 h-full flex justify-center">
-                        <StyledText className="text-l">
-                            Your Latest Moments
-                        </StyledText>
-                    </StyledView>
-                    {/* Right */}
-                    <StyledView className="w-1/3 h-full flex flex-row justify-center items-center">
-                        <TouchableOpacity onPress={() => router.push('/highlights/viewByDay')} style={{ marginLeft: 'auto' }}>
-                            <StyledText className="text-sm">View all</StyledText>
-                        </TouchableOpacity>
-                    </StyledView>
-                </StyledView>
+    <StyledSafeAreaView className="flex-1 bg-white px-4 w-full overflow-hidden">
+      <FlatList
+        ListHeaderComponent={(
+          <StyledView className="pt-5 bg-white border-b border-gray-200">
+            {/* Top Section */}
+            <StyledView className="h-20 w-full flex flex-wrap px-2 flex-row items-center justify-between">
+              {/* Left */}
+              <StyledView className="flex-1">
+                <StyledText className="text-2xl font-bold">
+                  Hello
+                </StyledText>
+                <StyledText className="text-l text-gray-500">
+                  Let’s put your moment in Frames
+                </StyledText>
+              </StyledView>
+              {/* Right */}
+              <StyledTouchableOpacity onPress={openBurger} className="ml-auto">
+                <StyledImage source={require('../../assets/images/lifelogo.png')} className="w-12 h-12" />
+              </StyledTouchableOpacity>
             </StyledView>
+          </StyledView>
         )}
         data={groupedEntries}
         key={'single-column'}
         numColumns={1}
         keyExtractor={(item) => item.year.toString()}
         renderItem={({ item }) => (
-        <StyledView className="rounded-lg w-full flex justify-around p-2 bg-green-300 mb-4">
-            <TouchableOpacity onPress={() => gotoMonthsintheYear(item.year)}>
-            <StyledText className="text-lg font-bold text-center mb-2">
+          <StyledView className="rounded-lg w-full flex flex-col p-4 mb-4 bg-gray-100">
+            <StyledTouchableOpacity onPress={() => gotoMonthsintheYear(item.year)}>
+              <StyledText className="text-lg font-bold text-center mb-2">
                 {item.year}
-            </StyledText>
-            <StyledView className="h-80">
+              </StyledText>
+              <StyledView className="h-80">
                 {item.photos.length > 0 && (
-                <Image
+                  <StyledImage
                     source={{ uri: item.photos[0] }}
-                    style={styles.image}
+                    className="w-full h-full rounded-lg"
                     resizeMode="cover"
-                />
+                  />
                 )}
-            </StyledView>
-            </TouchableOpacity>
-        </StyledView>
+              </StyledView>
+            </StyledTouchableOpacity>
+          </StyledView>
         )}
-        ListEmptyComponent={
-        <StyledView className="flex-1 justify-center items-center">
-             <StyledText className="text-center text-gray-500">Frame your Moments.</StyledText>
+        ListEmptyComponent={(
+          <StyledView className="flex-1 justify-center items-center">
+            <StyledText className="text-center text-gray-500">Frame your Moments.</StyledText>
+          </StyledView>
+        )}
+        showsVerticalScrollIndicator={false}
+      />
+      {burger && (
+        <StyledView className="absolute top-0 right-0 shadow-md rounded-md z-20">
+          <Burger closeBurger={closeBurger} />
         </StyledView>
-        }
-        showsVerticalScrollIndicator={false} 
-    />
-    {burger && (
-                <StyledView className="absolute top-0 right-0 shadow-md rounded-md z-20">
-                    <Burger closeBurger={closeBurger} />
-                </StyledView>
-            )}
-        </StyledSafeAreaView>
-        );
+      )}
+    </StyledSafeAreaView>
+  );
 };
 
 // Define styles for images
@@ -160,7 +144,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     backgroundColor: '#000',
-},
+  },
 });
 
 export default ViewbyYear;
