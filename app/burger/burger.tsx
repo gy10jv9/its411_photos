@@ -1,83 +1,58 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { StyledSafeAreaView, StyledText, StyledView } from '@/components/StyledComponents';
+import { StyledSafeAreaView, StyledText, StyledView, StyledTouchableOpacity, StyledImage } from '@/components/StyledComponents';
 import { useRouter } from 'expo-router';
 
 // Define the type for props
 interface BurgerProps {
-  closeBurger: () => void;
+  	closeBurger: () => void;
 }
 
 const Burger: React.FC<BurgerProps> = ({ closeBurger }) => {
-  const navigation = useNavigation();
+	const navigation = useNavigation();
 
-  const handleNavigation = (route: string) => {
-    navigation.navigate(route as never);
-    closeBurger(); // Close menu after navigation
-  };
-  const router=useRouter()
-  const handleLogout = () => {
-    alert('Logged out successfully');
-    closeBurger();
-  };
+	const handleNavigation = (route: string) => {
+		navigation.navigate(route as never);
+		closeBurger(); // Close menu after navigation
+	};
+	const router=useRouter()
+	const handleLogout = () => {
+		alert('Logged out successfully');
+		closeBurger();
+	};
 
-  return (
-    <StyledSafeAreaView className="w-screen h-screen p-0 bg-transparent flex flex-row-reverse">
-      {/* Logo Section */}
-      <StyledView className='h-screen w-3/5 opacity-100 bg-white'> 
-      <StyledView className="w-full flex-2 justify-center items-center">
-        <TouchableOpacity onPress={closeBurger}>
-          <Image source={require('../../assets/images/lifelogo.png')} style={styles.logo} />
-        </TouchableOpacity>
-      </StyledView>
-      
-      {/* Navigation Section */}
-      <StyledView className=" w-full flex-3 justify-evenly items-center">
-        <TouchableOpacity style={styles.button} onPress={() => router.push('/home')}>
-          <Text style={styles.buttonText}>Home</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => router.push('/home')}>
-          <Text style={styles.buttonText}>Profile</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => router.push('/highlightsmomentNav')}>
-          <Text style={styles.buttonText}>Entries</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => router.push('/highlights/addDay')}>
-          <Text style={styles.buttonText}>Add Day</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.logoutButton]} onPress={() => router.push('/')}>
-          <StyledText className='text-white pr-2 text-xl text-right'>Logout</StyledText>
-        </TouchableOpacity>
-      </StyledView>
-      </StyledView>
-    </StyledSafeAreaView>
-    
+	return (
+		<StyledSafeAreaView className="w-screen h-screen p-0 bg-transparent flex flex-row-reverse">
+		{/* Logo Section */}
+		<StyledView className='h-screen w-3/5 opacity-100 bg-white'> 
+			<StyledView className="w-full flex-2 justify-center items-center">
+				<TouchableOpacity onPress={closeBurger}>
+					<StyledImage source={require('../../assets/images/lifelogo.png')} className="w-52 h-52" />
+				</TouchableOpacity>
+			</StyledView>
+		
+			{/* Navigation Section */}
+			<StyledView className="w-full flex-3 justify-evenly items-center">
+				<StyledTouchableOpacity className="py-4 rounded-lg my-2 w-48 bg-violet-500" onPress={() => router.push('/home')}>
+					<StyledText className="text-white text-xl font-semibold text-right pr-4">Home</StyledText>
+				</StyledTouchableOpacity>
+				<StyledTouchableOpacity className="py-4 rounded-lg my-2 w-48 bg-violet-500" onPress={() => router.push('/home')}>
+					<StyledText className="text-white text-xl font-semibold text-right pr-4">Profile</StyledText>
+				</StyledTouchableOpacity>
+				<StyledTouchableOpacity className="py-4 rounded-lg my-2 w-48 bg-violet-500" onPress={() => router.push('/highlights/momentNav')}>
+					<StyledText className="text-white text-xl font-semibold text-right pr-4">Entries</StyledText>
+				</StyledTouchableOpacity>
+				<StyledTouchableOpacity className="py-4 rounded-lg my-2 w-48 bg-violet-500" onPress={() => router.push('/highlights/addDay')}>
+					<StyledText className="text-white text-xl font-semibold text-right pr-4">Add Day</StyledText>
+				</StyledTouchableOpacity>
+				<StyledTouchableOpacity className="py-4 rounded-lg my-2 w-48 bg-red-600" onPress={() => router.push('/')}>
+					<StyledText className='text-white text-xl text-right pr-4'>Logout</StyledText>
+				</StyledTouchableOpacity>
+			</StyledView>
+		</StyledView>
+	</StyledSafeAreaView>
   );
 };
 
 export default Burger;
-
-const styles = StyleSheet.create({
-  logo: {
-    width: 210,
-    height: 200,
-    marginRight: 0,
-  },
-  button: {
-    paddingVertical: 16,
-    borderRadius: 8,
-    marginVertical: 8,
-    width:200,
-  },
-  buttonText: {
-    color: '#000',
-    fontSize: 20,
-    paddingLeft:10,
-    fontWeight: '600',
-    textAlign: 'right'
-  },
-  logoutButton: {
-    backgroundColor: '#dc3545',
-  },
-});

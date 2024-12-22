@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { FlatList, ActivityIndicator, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { deleteMoment, fetchEntryById } from '@/functions/moments/moments';
 import { DiaryEntry } from '@/Interface/interface';
-import { StyledPressable, StyledText, StyledView } from '@/components/StyledComponents';
+import { StyledPressable, StyledText, StyledView, StyledImage, StyledTouchableOpacity } from '@/components/StyledComponents';
 import { useRouter } from 'expo-router';
 import { useMoment } from '@/context/MomentContext';
+import { useUser } from '@/userContext/userContext';
 
 const ViewMoment: React.FC = () => {
+    const { useruid, username } = useUser();
     const [entries, setEntries] = useState<DiaryEntry[]>([]);
     const [loading, setLoading] = useState(true);
     const router = useRouter();
@@ -29,21 +31,27 @@ const ViewMoment: React.FC = () => {
     }, []);
 
     const renderEntry = ({ item }: { item: DiaryEntry }) => (
-        <StyledView className="w-screen bg-green-200 h-full flex">
-            <StyledText className="text-2xl font-bold mt-2 bg-red-200 py-5 px-1">{item.title}</StyledText>
-            <Image source={{ uri: item.photo }} style={styles.image} />
-            <StyledText className="text-gray-500 text-l bg-red-400  py-5 px-1">{item.description}</StyledText>
-            <StyledText className="text-gray-600 text-sm bg-red-200 py-5 px-1">{item.address}??</StyledText>
-            <StyledText className="text-gray-400 text-sm bg-red-600 py-5 px-1">{item.date}</StyledText>
-            <TouchableOpacity onPress={()=>router.push('/highlights/editMoment')}>
-            <StyledText className="text-white text-sm bg-blue-600 py-5 px-1">Edit</StyledText>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={()=>{deleteMoment(item.id, item.photo)
-                router.push('/home')}
-            }>
-            <StyledText className="text-white text-sm bg-blue-600 py-5 px-1">Delete</StyledText>
-            </TouchableOpacity>
-            
+        <StyledView className="w-full bg-white flex flex-col mb-4">
+            {/* profile sang user prehas sa instagram ah */}
+            <StyledView className="flex-row items-center mb-4">
+                <StyledImage source={require('../../assets/images/defaults/profile.jpg')} style={styles.profile} />
+                <StyledView className="ml-4">
+                    <StyledText className="text-lg font-semibold">{username}</StyledText>
+                    <StyledText className="text-sm text-gray-500"> userId: {useruid} </StyledText>
+                </StyledView>
+            </StyledView>
+            <StyledImage source={{ uri: item.photo }} className="w-full h-96" />
+            <StyledView className="p-4">
+                <StyledText className="text-gray-800">{item.description}</StyledText>
+                <StyledText className="text-gray-500 text-sm">{item.address}</StyledText>
+                <StyledText className="text-gray-400 text-xs">{item.date}</StyledText>
+                <StyledTouchableOpacity onPress={() => router.push('/highlights/editMoment')} className="mt-2">
+                    <StyledText className="text-blue-600">Edit</StyledText>
+                </StyledTouchableOpacity>
+                <StyledTouchableOpacity onPress={() => { deleteMoment(item.id, item.photo); router.push('/home'); }} className="mt-2">
+                    <StyledText className="text-red-600">Delete</StyledText>
+                </StyledTouchableOpacity>
+            </StyledView>
         </StyledView>
     );
 
@@ -56,30 +64,19 @@ const ViewMoment: React.FC = () => {
     }
 
     return (
-        <StyledView className="flex-1 bg-white p-1 h-full w-screen">
+        <StyledView className="flex-1 bg-white">
             <FlatList
-            ListHeaderComponent={(
-                                <StyledView className="pt-5 bg-orange-200">
-                                    {/* Top Section */}
-                                    <StyledView className="h-20 w-full flex flex-wrap p-2 ">
-                                        {/* Left */}
-                                        <StyledView className="w-2/3 h-full flex justify-center">
-                                            <StyledText className="text-2xl mb-1">
-                                                Your Moment
-                                            </StyledText>
-                                            <StyledText className="text-l">
-                                                Let’s put your moment in Frames
-                                            </StyledText>
-                                        </StyledView>
-                                        {/* Right */}
-                                        <StyledView className="w-1/3 h-full flex flex-row justify-center items-center">
-                                            <TouchableOpacity onPress={openBurger} style={{ marginLeft: 'auto' }}>
-                                                <Image source={require('../../assets/images/lifelogo.png')} style={styles.logo} />
-                                            </TouchableOpacity>
-                                        </StyledView>
-                                    </StyledView>
-                                </StyledView>
-                            )}
+                ListHeaderComponent={(
+                    <StyledView className="bg-white p-4 border-b border-gray-200">
+                        <StyledView className="flex flex-row justify-between items-center">
+                            <StyledText className="text-2xl font-bold">Your Moment</StyledText>
+                            <TouchableOpacity onPress={openBurger}>
+                                <StyledImage source={require('../../assets/images/lifelogo.png')} className="w-10 h-10" />
+                            </TouchableOpacity>
+                        </StyledView>
+                        <StyledText className="text-gray-500">Let’s put your moment in Frames</StyledText>
+                    </StyledView>
+                )}
                 data={entries}
                 renderItem={renderEntry}
                 keyExtractor={(item) => item.id}
@@ -90,21 +87,14 @@ const ViewMoment: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-    image: {
-        width: '100%',
-        height: 200,
-    },
     list: {
-        height: "100%",
-        backgroundColor: "orange",
-        margin: 0,
-        padding: 0
+        backgroundColor: "white",
     },
-    logo: {
+    profile: {
         width: 50,
         height: 50,
-        backgroundColor: '#000',
-    }
+        borderRadius: 50,
+    },
 });
 
 export default ViewMoment;
