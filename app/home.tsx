@@ -110,18 +110,20 @@ const HomePage = () => {
                 ListFooterComponent={(
                     <StyledView className="p-2">
                         {/* Buttons */}
-                        <StyledPressable className="bg-gray-200 rounded-lg py-2 my-2 items-center">
-                            <StyledText>day</StyledText>
-                        </StyledPressable>
-                        <StyledPressable className="bg-gray-200 rounded-lg py-2 my-2 items-center">
-                            <StyledText>month</StyledText>
-                        </StyledPressable>
-                        <StyledPressable className="bg-gray-200 rounded-lg py-2 my-2 items-center">
-                            <StyledText>year</StyledText>
-                        </StyledPressable>
+                        <StyledView className="flex-row justify-between">
+                            <StyledPressable onPress={() => router.push('/highlights/momentNav?filter=day')} className="bg-gray-200 rounded-lg py-2 px-4 items-center">
+                                <StyledText>day</StyledText>
+                            </StyledPressable>
+                            <StyledPressable onPress={() => router.push('/highlights/momentNav?filter=month')} className="bg-gray-200 rounded-lg py-2 px-4 items-center">
+                                <StyledText>month</StyledText>
+                            </StyledPressable>
+                            <StyledPressable onPress={() => router.push('/highlights/momentNav?filter=year')} className="bg-gray-200 rounded-lg py-2 px-4 items-center">
+                                <StyledText>year</StyledText>
+                            </StyledPressable>
+                        </StyledView>
 
                         {/* Add Moment Button */}
-                        <StyledPressable onPress={() => router.push('/highlights/addDay')} className="bg-violet-500 py-5 items-center rounded-xl">
+                        <StyledPressable onPress={() => router.push('/highlights/addDay')} className="bg-violet-500 py-5 items-center rounded-xl mt-4">
                             <StyledText className="text-white font-semibold">Add A Moment</StyledText>
                         </StyledPressable>
                     </StyledView>
