@@ -1,6 +1,7 @@
-import { addDoc, collection, query, where, getDocs, updateDoc, doc } from '@react-native-firebase/firestore';
-import auth from '@react-native-firebase/auth'
+import { addDoc, collection, query, where, getDocs, updateDoc, doc, getDoc } from '@react-native-firebase/firestore';
+import auth, { getAuth } from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore';
+import { User } from '@/Interface/interface';
 const usersData = firestore().collection('UsersData');
 
 const Register = async (formData: any) => {
@@ -82,5 +83,41 @@ const Login = async (formData: any) => {
   }
 };
 
+const fetchUserDetails = async (userid: string | null) => {
+  try {
+    if (!userid) {
+      return { success: false, message: "No ID provided.", data: [] };
+    }
 
-export { Register, Login };
+    const auth = getAuth();
+    const currentUser = auth.currentUser;
+
+    if (!currentUser || currentUser.uid !== userid) {
+      console.warn("No authenticated user matches the provided ID.");
+      return { success: true, message: "No authenticated user available for this ID.", data: [] };
+    }
+
+    const email = currentUser.email || "No email available";
+    const usersDataRef = collection(firestore(), "UsersData");
+    const q = query(usersDataRef, where("userUID", "==", userid));
+    const querySnapshot = await getDocs(q);
+
+    if (querySnapshot.empty) {
+      console.warn("No entry found for this ID in the 'UsersData' collection.");
+      return { success: true, message: "No entry available for this ID.", data: [] };
+    }
+
+    const entryData = querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data(),
+      email,
+    })) as User[];
+
+    return { success: true, data: entryData, message: "User details fetched successfully." };
+  } catch (err) {
+    console.error("Error fetching user details: ", err);
+    return { success: false, message: "Error occurred while fetching user details.", data: [] };
+  }
+};
+
+export { Register, Login, fetchUserDetails };

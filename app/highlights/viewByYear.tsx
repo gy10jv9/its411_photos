@@ -134,9 +134,7 @@ const [burger, setBurger] = useState(false);
         )}
         ListEmptyComponent={
         <StyledView className="flex-1 justify-center items-center">
-            <StyledText className="text-center text-gray-500">
-            No diary entries found.
-            </StyledText>
+             <StyledText className="text-center text-gray-500">Frame your Moments.</StyledText>
         </StyledView>
         }
         showsVerticalScrollIndicator={false} 

@@ -10,8 +10,9 @@ const Reg_Part2 = () => {
   const { formData, setFormData } = useRegistrationFormData();
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
-
+  const [loading, setLoading] = useState(false); 
   const handleRegister = async () => {
+    setLoading(true); // Start loading
     const result = await Register(formData);
     if (result && result.success) {
       alert("Registration successful!");
@@ -63,14 +64,25 @@ const Reg_Part2 = () => {
         {error}
       </StyledText>
     )}
-    <StyledPressable
+    {/* <StyledPressable
       className="bg-indigo-700 py-2 w-full rounded-full shadow-md"
       onPress={handleRegister}
     >
       <StyledText className="text-white text-center font-semibold">
         Register
       </StyledText>
-    </StyledPressable>
+    </StyledPressable> */}
+    <StyledPressable
+          className={`bg-indigo-700 py-3 px-4 rounded-full w-full mt-4 ${
+            loading ? 'opacity-50' : ''
+          }`}
+          onPress={handleRegister}
+          disabled={loading} // Disable button when loading
+        >
+          <StyledText className="text-white text-center text-lg font-semibold">
+            {loading ? 'Creating Account...' : 'Register'} {/* Show loading text */}
+          </StyledText>
+        </StyledPressable>
   </StyledView>
     </StyledSafeAreaView>
 

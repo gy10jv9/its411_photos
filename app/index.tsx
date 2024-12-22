@@ -8,13 +8,14 @@ import ViewbyYear from './highlights/viewByYear'
 import Burger from './burger/burger'
 import ViewbyMonth from './highlights/viewByMonth'
 import ViewbyDay from './highlights/viewByDay'
+import Profile from './profile/profile'
 
 const Home = () => {
 	const router = useRouter()
 	return (
 		<SafeAreaView>
-			<StyledView className='w-screen h-screen justify-center items-center'>
-				<Signin/>    
+			<StyledView >
+				<GetStarted/>    
 				{/* <ViewbyDay/>     */}
 				{/* <ViewbyMonth/>     */}
 			</StyledView>

@@ -37,7 +37,7 @@ const Burger: React.FC<BurgerProps> = ({ closeBurger }) => {
         <TouchableOpacity style={styles.button} onPress={() => router.push('/home')}>
           <Text style={styles.buttonText}>Home</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => router.push('/home')}>
+        <TouchableOpacity style={styles.button} onPress={() => router.push('/profile/profile')}>
           <Text style={styles.buttonText}>Profile</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={() => router.push('/highlights/addDay')}>

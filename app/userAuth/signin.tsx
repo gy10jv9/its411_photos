@@ -41,7 +41,6 @@ const Signin = () => {
         <StyledText className="text-3xl font-bold text-indigo-700 mb-6">
           Sign In
         </StyledText>
-
         <StyledTextInput
           className="bg-white border border-gray-300 rounded-md py-2 px-4 my-2 w-full shadow-md"
           placeholder="Email"

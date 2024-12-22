@@ -48,8 +48,8 @@ const fetchEntries = async (userUID: string | null) => {
         const snapshot = await getDocs(userQuery);
 
         if (snapshot.empty) {
-            console.warn("No entries found for this user in the 'DayDiary' collection.");
-            return { data: [], success: true, message: "No entries available for this user." };
+            // console.warn("No entries found for this user in the 'DayDiary' collection.");
+            return { data: [], success: true, message: "Frame your Moments" };
         }
 
         const entriesData = snapshot.docs.map(doc => ({
