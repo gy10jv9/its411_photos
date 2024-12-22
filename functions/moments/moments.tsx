@@ -48,8 +48,7 @@ const fetchEntries = async (userUID: string | null) => {
         const snapshot = await getDocs(userQuery);
 
         if (snapshot.empty) {
-            // console.warn("No entries found for this user in the 'DayDiary' collection.");
-            return { data: [], success: true, message: "Frame your Moments" };
+            return { data: [], success: true, message: "Frame your Moments." };
         }
 
         const entriesData = snapshot.docs.map(doc => ({
@@ -70,7 +69,6 @@ const fetchEntryById = async (momentId: string | null) => {
         }
         const snap = await getDoc(doc(firestore(), 'DayDiary', momentId))
         if(!snap.exists){
-            console.warn("No entry found for this ID in the 'DayDiary' collection.");
             return { data: [], success: true, message: "No entry available for this ID." };
         }
         const entryData = {

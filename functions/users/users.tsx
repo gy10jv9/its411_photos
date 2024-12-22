@@ -93,7 +93,6 @@ const fetchUserDetails = async (userid: string | null) => {
     const currentUser = auth.currentUser;
 
     if (!currentUser || currentUser.uid !== userid) {
-      console.warn("No authenticated user matches the provided ID.");
       return { success: true, message: "No authenticated user available for this ID.", data: [] };
     }
 
@@ -103,7 +102,6 @@ const fetchUserDetails = async (userid: string | null) => {
     const querySnapshot = await getDocs(q);
 
     if (querySnapshot.empty) {
-      console.warn("No entry found for this ID in the 'UsersData' collection.");
       return { success: true, message: "No entry available for this ID.", data: [] };
     }
 
